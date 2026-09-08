@@ -1,0 +1,10 @@
+{
+  "description": "This premium dental clinic website offers a luxurious, user-friendly experience for patients seeking personalized dental care, featuring easy appointment booking and informative service showcases.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
