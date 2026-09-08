@@ -28,7 +28,7 @@ const IMG = {
     "https://images.unsplash.com/photo-1642844613096-7b743b7d9915?w=800&h=1000&fit=crop&auto=format",
   clinic3:
     "https://images.unsplash.com/photo-1759262151080-e05ba1c6294f?w=800&h=1000&fit=crop&auto=format",
-  doctor: new URL("../drVishal.JPG", import.meta.url).href,
+  doctor: new URL("../drVishal.jpg", import.meta.url).href,
   teeth1:
     "https://images.unsplash.com/photo-1489278353717-f64c6ee8a4d2?w=800&h=600&fit=crop&auto=format",
   teeth2:
@@ -1155,7 +1155,7 @@ function ClinicExperience() {
         >
           <div className="img-zoom rounded-[32px] overflow-hidden aspect-[4/5]">
             <img
-              src={new URL("../topview.JPG", import.meta.url).href}
+              src={new URL("../topview.jpg", import.meta.url).href}
               alt="Serene Dentistry interior"
               className="w-full h-full object-cover"
             />
@@ -1460,7 +1460,7 @@ function DoctorSection() {
           <div className="relative lg:col-span-2">
             <div className="img-zoom aspect-[3/4] overflow-hidden rounded-[32px]">
               <img
-                src={new URL("../drSachin.JPG", import.meta.url).href}
+                src={new URL("../drSachin.jpg", import.meta.url).href}
                 alt="Dr. Sachin, Dentist"
                 className="h-full w-full object-cover"
                 style={{ objectPosition: "center top" }}
@@ -1940,37 +1940,37 @@ function ClinicGallerySection() {
   const galleryPaused = useRef(false);
   const galleryImages = [
     {
-      src: new URL("../0F8A8522.JPG", import.meta.url).href,
+      src: new URL("../0F8A8522.jpg", import.meta.url).href,
       alt: "Advanced dental imaging equipment at Serene Dentistry",
       label: "Advanced technology",
     },
     {
-      src: new URL("../0F8A8520.JPG", import.meta.url).href,
+      src: new URL("../0F8A8520.jpg", import.meta.url).href,
       alt: "Dental imaging room at Serene Dentistry",
       label: "Care with precision",
     },
     {
-      src: new URL("../0F8A8518.JPG", import.meta.url).href,
+      src: new URL("../0F8A8518.jpg", import.meta.url).href,
       alt: "Bright dental treatment room at Serene Dentistry",
       label: "Bright, modern treatment rooms",
     },
     {
-      src: new URL("../0F8A8508.JPG", import.meta.url).href,
+      src: new URL("../0F8A8508.jpg", import.meta.url).href,
       alt: "Modern dental chair and equipment at Serene Dentistry",
       label: "Designed around your comfort",
     },
     {
-      src: new URL("../0F8A8507.JPG", import.meta.url).href,
+      src: new URL("../0F8A8507.jpg", import.meta.url).href,
       alt: "Dental equipment and treatment chair at Serene Dentistry",
       label: "Thoughtful treatment spaces",
     },
     {
-      src: new URL("../0F8A8502.JPG", import.meta.url).href,
+      src: new URL("../0F8A8502.jpg", import.meta.url).href,
       alt: "Serene Dentistry treatment suite",
       label: "A calm environment for care",
     },
     {
-      src: new URL("../0F8A8488.JPG", import.meta.url).href,
+      src: new URL("../0F8A8488.jpg", import.meta.url).href,
       alt: "Serene Dentistry reception and waiting area",
       label: "A warm welcome, every time",
     },
