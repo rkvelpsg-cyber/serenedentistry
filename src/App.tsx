@@ -3407,10 +3407,42 @@ function useSeo(
       }
       tag.setAttribute("content", content);
     };
+    const setMetaProperty = (property: string, content: string) => {
+      let tag = document.querySelector(`meta[property="${property}"]`);
+      if (!tag) {
+        tag = document.createElement("meta");
+        tag.setAttribute("property", property);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute("content", content);
+    };
+
     setMeta("description", description);
+    setMeta("robots", "index, follow");
+    setMeta("theme-color", "#B9684B");
+    setMetaProperty("og:title", title);
+    setMetaProperty("og:description", description);
+    setMetaProperty("og:type", "website");
+    setMetaProperty("og:site_name", "Serene Dentistry");
+    setMetaProperty("og:locale", "en_IN");
+    setMetaProperty(
+      "og:url",
+      `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`,
+    );
+    setMetaProperty(
+      "og:image",
+      "https://images.unsplash.com/photo-1588776814546-da5a1d0f0f57?auto=format&fit=crop&w=1200&q=80",
+    );
+    setMeta("twitter:card", "summary_large_image");
+    setMeta("twitter:title", title);
+    setMeta("twitter:description", description);
+    setMeta(
+      "twitter:image",
+      "https://images.unsplash.com/photo-1588776814546-da5a1d0f0f57?auto=format&fit=crop&w=1200&q=80",
+    );
     if (keywords && keywords.length) setMeta("keywords", keywords.join(", "));
 
-    const canonicalUrl = `${SITE_URL}${path}`;
+    const canonicalUrl = `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
       canonical = document.createElement("link");
@@ -3428,16 +3460,21 @@ function useLocalBusinessSchema() {
       "@context": "https://schema.org",
       "@type": "Dentist",
       name: "Serene Dentistry",
-      image: `${SITE_URL}/og-image.jpg`,
+      image:
+        "https://images.unsplash.com/photo-1588776814546-da5a1d0f0f57?auto=format&fit=crop&w=1200&q=80",
       url: SITE_URL,
       telephone: "+91-8971919743",
       email: "serenedentistrywhitefield@gmail.com",
       address: {
         "@type": "PostalAddress",
-        addressLocality: "Whitefield, Bengaluru",
+        streetAddress: "Whitefield, Bengaluru",
+        addressLocality: "Whitefield",
         addressRegion: "Karnataka",
+        postalCode: "560066",
         addressCountry: "IN",
       },
+      areaServed: ["Whitefield", "Bengaluru", "Karnataka"],
+      openingHours: ["Mo-Fr 09:00-20:00", "Sa 09:00-18:00"],
       priceRange: "$$",
       medicalSpecialty: [
         "Orthodontics",
@@ -3445,6 +3482,8 @@ function useLocalBusinessSchema() {
         "Oral Surgery",
         "Dental Implants",
       ],
+      hasMap:
+        "https://maps.google.com/?q=Serene+Dentistry+Whitefield+Bengaluru",
     };
     let script = document.getElementById("local-business-schema");
     if (!script) {
