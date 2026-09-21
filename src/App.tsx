@@ -85,39 +85,66 @@ function Header({
 
   const treatmentCategories = [
     {
-      title: "Cosmetic Dentistry",
-      items: [
-        "Smile Makeovers",
-        "Veneers",
-        "Teeth Whitening",
-        "Composite Bonding",
-      ],
-    },
-    {
-      title: "Restorative",
-      items: [
-        "Dental Implants",
-        "Crowns & Bridges",
-        "Root Canal",
-        "Tooth-Coloured Fillings",
-      ],
-    },
-    {
-      title: "Orthodontics",
+      title: "Orthodontics Care",
       items: [
         "Clear Aligners",
-        "Invisible Braces",
-        "Retainers",
-        "Teeth Straightening",
+        "Ceramic & Metal Braces",
+        "Digital Treatment Planning",
+        "Retainers & Smile Maintenance",
       ],
     },
     {
-      title: "General Care",
+      title: "Digital Smile Designing",
       items: [
-        "Preventive Care",
-        "Hygiene Visits",
-        "Emergency Dentistry",
-        "Children's Dentistry",
+        "Facial Smile Analysis",
+        "Digital Smile Simulation",
+        "Smile Makeover Planning",
+        "Personalized Treatment Design",
+      ],
+    },
+    {
+      title: "General Dentistry",
+      items: [
+        "Preventive Dental Care",
+        "Professional Teeth Cleaning",
+        "Tooth Coloured Fillings",
+        "Root Canal Treatment",
+      ],
+    },
+    {
+      title: "Dental Implants",
+      items: [
+        "Single Tooth Implants",
+        "Multiple Teeth Replacement",
+        "Full Mouth Implants",
+        "Implant Supported Prostheses",
+      ],
+    },
+    {
+      title: "Veneers & Laminates",
+      items: [
+        "Porcelain Veneers",
+        "Ultra Thin Laminates",
+        "Smile Makeovers",
+        "Minimal Preparation Dentistry",
+      ],
+    },
+    {
+      title: "Oral & Maxillofacial Surgery",
+      items: [
+        "Wisdom Tooth Removal",
+        "Surgical Extractions",
+        "Impacted Teeth Treatment",
+        "Jaw Corrective Surgery",
+      ],
+    },
+    {
+      title: "Full Mouth Rehabilitation",
+      items: [
+        "Full Mouth Reconstruction",
+        "Bite Rehabilitation",
+        "Worn Teeth Restoration",
+        "Comprehensive Treatment Planning",
       ],
     },
   ];
@@ -154,7 +181,12 @@ function Header({
             {/* Desktop nav */}
             <nav className="hidden items-center gap-7 lg:flex">
               {navLinks.map((link) => (
-                <div key={link.label} className="relative group">
+                <div
+                  key={link.label}
+                  className="relative group"
+                  onMouseEnter={() => link.hasMega && setTreatmentsOpen(true)}
+                  onMouseLeave={() => link.hasMega && setTreatmentsOpen(false)}
+                >
                   <a
                     href={link.href}
                     className="relative pb-0.5 text-sm font-medium tracking-wide transition-colors duration-200"
@@ -165,64 +197,63 @@ function Header({
                       fontSize: 13,
                       textDecoration: "none",
                     }}
-                    onMouseEnter={() => link.hasMega && setTreatmentsOpen(true)}
-                    onMouseLeave={() =>
-                      link.hasMega && setTreatmentsOpen(false)
-                    }
                   >
                     {link.label}
                     <span className="absolute bottom-0 left-0 h-px bg-current origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 w-full" />
                   </a>
                   {link.hasMega && treatmentsOpen && (
                     <div
-                      className="absolute top-full left-1/2 -translate-x-1/2 mt-6 w-[640px] rounded-2xl shadow-2xl p-8 grid grid-cols-4 gap-6"
-                      style={{
-                        background: C.ivory,
-                        border: `1px solid ${C.border}`,
-                      }}
-                      onMouseEnter={() => setTreatmentsOpen(true)}
-                      onMouseLeave={() => setTreatmentsOpen(false)}
+                      className="absolute top-full left-1/2 -translate-x-1/2 pt-6 w-[min(880px,92vw)]"
+                      style={{ marginTop: -1 }}
                     >
-                      {treatmentCategories.map((cat) => (
-                        <div key={cat.title}>
-                          <div
-                            style={{
-                              fontFamily: "var(--font-body)",
-                              fontSize: 10,
-                              fontWeight: 700,
-                              letterSpacing: "0.15em",
-                              textTransform: "uppercase",
-                              color: C.terracotta,
-                              marginBottom: 12,
-                            }}
-                          >
-                            {cat.title}
-                          </div>
-                          {cat.items.map((item) => (
-                            <a
-                              key={item}
-                              href="#treatments"
+                      <div
+                        className="rounded-2xl shadow-2xl p-8 grid grid-cols-4 gap-x-6 gap-y-8"
+                        style={{
+                          background: C.ivory,
+                          border: `1px solid ${C.border}`,
+                        }}
+                      >
+                        {treatmentCategories.map((cat) => (
+                          <div key={cat.title}>
+                            <div
                               style={{
-                                display: "block",
                                 fontFamily: "var(--font-body)",
-                                fontSize: 13,
-                                color: C.espresso,
-                                marginBottom: 8,
-                                textDecoration: "none",
-                                transition: "color 0.2s",
+                                fontSize: 10,
+                                fontWeight: 700,
+                                letterSpacing: "0.15em",
+                                textTransform: "uppercase",
+                                color: C.terracotta,
+                                marginBottom: 12,
                               }}
-                              onMouseEnter={(e) =>
-                                (e.currentTarget.style.color = C.terracotta)
-                              }
-                              onMouseLeave={(e) =>
-                                (e.currentTarget.style.color = C.espresso)
-                              }
                             >
-                              {item}
-                            </a>
-                          ))}
-                        </div>
-                      ))}
+                              {cat.title}
+                            </div>
+                            {cat.items.map((item) => (
+                              <a
+                                key={item}
+                                href="#treatments"
+                                style={{
+                                  display: "block",
+                                  fontFamily: "var(--font-body)",
+                                  fontSize: 13,
+                                  color: C.espresso,
+                                  marginBottom: 8,
+                                  textDecoration: "none",
+                                  transition: "color 0.2s",
+                                }}
+                                onMouseEnter={(e) =>
+                                  (e.currentTarget.style.color = C.terracotta)
+                                }
+                                onMouseLeave={(e) =>
+                                  (e.currentTarget.style.color = C.espresso)
+                                }
+                              >
+                                {item}
+                              </a>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>
