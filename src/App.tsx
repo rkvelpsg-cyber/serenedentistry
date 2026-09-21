@@ -2160,6 +2160,60 @@ function TestimonialsSection() {
   );
 }
 
+function PatientVideoSection() {
+  const ref = useReveal();
+  return (
+    <section className="py-24 lg:py-36" style={{ background: C.ivory }}>
+      <div className="max-w-[1280px] mx-auto px-6 lg:px-10">
+        <div ref={ref} className="reveal mb-14 text-center">
+          <div className="flex items-center justify-center gap-3 mb-5">
+            <div className="h-px w-8" style={{ background: C.terracotta }} />
+            <span
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color: C.terracotta,
+              }}
+            >
+              In Their Own Words
+            </span>
+            <div className="h-px w-8" style={{ background: C.terracotta }} />
+          </div>
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(36px, 4.5vw, 60px)",
+              fontWeight: 400,
+              color: C.espresso,
+              letterSpacing: "-0.02em",
+              lineHeight: 1.1,
+            }}
+          >
+            Hear From Our Patients
+          </h2>
+        </div>
+
+        <div
+          className="mx-auto max-w-[840px] overflow-hidden rounded-[28px]"
+          style={{ border: `1px solid ${C.border}`, background: C.espresso }}
+        >
+          <video
+            src={new URL("./patient1.mp4", import.meta.url).href}
+            controls
+            playsInline
+            preload="metadata"
+            className="w-full h-full block"
+            style={{ aspectRatio: "16 / 9" }}
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ProcessSection() {
   const ref = useReveal();
   const steps = [
@@ -2425,13 +2479,13 @@ function JournalSection() {
       category: "Patient Care",
       title: "What to Expect During Your First Dental Implant Consultation",
       time: "4 min read",
-      img: IMG.clinic1,
+      img: new URL("./implants.png", import.meta.url).href,
     },
     {
       category: "Oral Health",
       title: "Why Your Dental Hygiene Routine Matters More Than You Think",
       time: "3 min read",
-      img: IMG.beauty,
+      img: new URL("./fullmouth.png", import.meta.url).href,
     },
   ];
 
@@ -3399,6 +3453,7 @@ export default function App() {
         <BeforeAfterSection />
         <ClinicGallerySection />
         <TestimonialsSection />
+        <PatientVideoSection />
         <ProcessSection />
         <CTASection onBooking={() => setBookingOpen(true)} />
         <JournalSection />
