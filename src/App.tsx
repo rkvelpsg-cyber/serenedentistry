@@ -210,15 +210,27 @@ function Header({
             <div className="hidden items-center gap-4 lg:flex">
               <a
                 href="tel:+918971919743"
+                className="px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300"
                 style={{
+                  background: "transparent",
+                  color: C.terracotta,
                   fontFamily: "var(--font-body)",
+                  fontWeight: 600,
                   fontSize: 13,
-                  color: C.espresso,
+                  letterSpacing: "0.02em",
+                  border: `1.5px solid ${C.terracotta}`,
                   textDecoration: "none",
-                  opacity: 0.8,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = C.terracotta;
+                  e.currentTarget.style.color = C.white;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.color = C.terracotta;
                 }}
               >
-                +91-8971919743
+                Call Us
               </a>
               <button
                 onClick={onBooking}
@@ -2317,7 +2329,7 @@ function CTASection({ onBooking }: { onBooking: () => void }) {
                 Call the Clinic
               </a>
               <a
-                href="https://wa.me/919876543210"
+                href="https://wa.me/918971919743?text=Hi%20Serene%20Dentistry%2C%20I%27d%20like%20to%20book%20an%20appointment."
                 className="px-8 py-4 rounded-full font-semibold flex items-center gap-2 transition-all duration-300"
                 style={{
                   background: "transparent",
@@ -2898,6 +2910,21 @@ function BookingModal({
           className="px-8 py-8 flex flex-col gap-5"
           onSubmit={(e) => {
             e.preventDefault();
+            const lines = [
+              "New Appointment Request",
+              `Name: ${form.name}`,
+              `Phone: ${form.phone}`,
+              `Email: ${form.email}`,
+              `Treatment: ${form.treatment || "Not specified"}`,
+              `Preferred Date: ${form.date || "Not specified"}`,
+              `Preferred Time: ${form.time || "Not specified"}`,
+              `Patient Type: ${form.type === "new" ? "New Patient" : "Existing Patient"}`,
+              form.message ? `Message: ${form.message}` : null,
+            ]
+              .filter(Boolean)
+              .join("\n");
+            const whatsappUrl = `https://wa.me/918971919743?text=${encodeURIComponent(lines)}`;
+            window.open(whatsappUrl, "_blank", "noopener,noreferrer");
             setStep(2);
           }}
         >
@@ -3008,21 +3035,12 @@ function BookingModal({
               }}
             >
               <option value="">Select a treatment</option>
-              {[
-                "Smile Makeover",
-                "Dental Implants",
-                "Teeth Whitening",
-                "Clear Aligners",
-                "Veneers",
-                "Root Canal",
-                "Crowns & Bridges",
-                "General Consultation",
-                "Other",
-              ].map((t) => (
-                <option key={t} value={t}>
-                  {t}
+              {TREATMENTS.map((t) => (
+                <option key={t.slug} value={t.title}>
+                  {t.title}
                 </option>
               ))}
+              <option value="Other">Other</option>
             </select>
           </div>
           <div className="grid grid-cols-2 gap-4">
@@ -3071,7 +3089,8 @@ function BookingModal({
               >
                 Preferred Time
               </label>
-              <select
+              <input
+                type="time"
                 value={form.time}
                 onChange={(e) =>
                   setForm((f) => ({ ...f, time: e.target.value }))
@@ -3082,26 +3101,8 @@ function BookingModal({
                   border: `1px solid ${C.border}`,
                   fontFamily: "var(--font-body)",
                   color: form.time ? C.espresso : C.warmGrey,
-                  appearance: "none",
                 }}
-              >
-                <option value="">Select time</option>
-                {[
-                  "9:00am",
-                  "10:00am",
-                  "11:00am",
-                  "12:00pm",
-                  "2:00pm",
-                  "3:00pm",
-                  "4:00pm",
-                  "5:00pm",
-                  "6:00pm",
-                ].map((t) => (
-                  <option key={t} value={t}>
-                    {t}
-                  </option>
-                ))}
-              </select>
+              />
             </div>
           </div>
           <div className="flex gap-3">
@@ -3322,7 +3323,7 @@ function WhatsAppButton() {
 
   return (
     <a
-      href="https://wa.me/919876543210"
+      href="https://wa.me/918971919743?text=Hi%20Serene%20Dentistry%2C%20I%27d%20like%20to%20book%20an%20appointment."
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className="fixed bottom-24 right-6 z-[90] w-14 h-14 rounded-full flex items-center justify-center shadow-lg lg:bottom-6"
