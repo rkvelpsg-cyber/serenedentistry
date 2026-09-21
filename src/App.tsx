@@ -641,7 +641,7 @@ function TreatmentsSection() {
   const ref = useReveal();
   const categories = [
     {
-      title: "Orthodontic Care",
+      title: "Orthodontics Care",
       subtitle: "Aligners & Braces",
       desc: "Personalized orthodontic care designed to improve alignment, function, and facial harmony through modern treatment solutions tailored to every smile.",
       features: [
@@ -654,22 +654,76 @@ function TreatmentsSection() {
       tag: "01",
     },
     {
-      title: "General Dentistry",
-      desc: "Comprehensive preventive care and routine treatments to keep your smile healthy for life.",
+      title: "Digital Smile Designing",
+      desc: "Every exceptional smile begins with thoughtful planning. Our digital smile design process combines facial aesthetics, precision, and technology to create smiles that are uniquely yours.",
+      features: [
+        "Facial Smile Analysis",
+        "Digital Smile Simulation",
+        "Smile Makeover Planning",
+        "Personalized Treatment Design",
+      ],
       img: IMG.clinic1,
       tag: "02",
     },
     {
-      title: "Cosmetic Dentistry",
-      desc: "Transform your smile with veneers, whitening and composite bonding tailored to your natural beauty.",
+      title: "General Dentistry",
+      desc: "Healthy smiles begin with prevention. From routine care to restorative treatments, we help preserve your oral health through precise, minimally invasive dentistry.",
+      features: [
+        "Preventive Dental Care",
+        "Professional Teeth Cleaning",
+        "Tooth Coloured Fillings",
+        "Root Canal Treatment",
+      ],
       img: IMG.teeth1,
       tag: "03",
     },
     {
-      title: "Restorative Dentistry",
-      desc: "Implants, crowns and bridges crafted with precision to restore function and aesthetics.",
+      title: "Dental Implants",
+      desc: "Restore missing teeth with implant solutions designed for strength, stability, and long-term success. Every treatment is planned for seamless, natural-looking results.",
+      features: [
+        "Single Tooth Implants",
+        "Multiple Teeth Replacement",
+        "Full Mouth Implants",
+        "Implant Supported Prostheses",
+      ],
       img: IMG.clinic2,
       tag: "04",
+    },
+    {
+      title: "Veneers & Laminates",
+      desc: "Subtle enhancements create lasting impressions. Our veneers and laminates are crafted to enhance your smile while preserving a naturally beautiful appearance.",
+      features: [
+        "Porcelain Veneers",
+        "Ultra Thin Laminates",
+        "Smile Makeovers",
+        "Minimal Preparation Dentistry",
+      ],
+      img: IMG.teeth2,
+      tag: "05",
+    },
+    {
+      title: "Oral & Maxillofacial Surgery",
+      desc: "Advanced surgical care delivered with meticulous planning, modern techniques, and a strong focus on comfort, safety, and predictable outcomes.",
+      features: [
+        "Wisdom Tooth Removal",
+        "Surgical Extractions",
+        "Impacted Teeth Treatment",
+        "Jaw Corrective Surgery",
+      ],
+      img: IMG.clinic3,
+      tag: "06",
+    },
+    {
+      title: "Full Mouth Rehabilitation",
+      desc: "Comprehensive rehabilitation that restores function, aesthetics, and confidence through carefully coordinated treatment planning designed for long-term oral health.",
+      features: [
+        "Full Mouth Reconstruction",
+        "Bite Rehabilitation",
+        "Worn Teeth Restoration",
+        "Comprehensive Treatment Planning",
+      ],
+      img: IMG.beauty,
+      tag: "07",
     },
   ];
 
@@ -711,9 +765,13 @@ function TreatmentsSection() {
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div>
           {categories.map((cat, i) => (
-            <TreatmentCard key={cat.title} {...cat} reversed={i % 2 === 1} />
+            <TreatmentCard
+              key={cat.title}
+              {...cat}
+              isLast={i === categories.length - 1}
+            />
           ))}
         </div>
       </div>
@@ -745,6 +803,7 @@ function TreatmentCard({
   tag,
   subtitle,
   features,
+  isLast,
 }: {
   title: string;
   desc: string;
@@ -752,19 +811,23 @@ function TreatmentCard({
   tag: string;
   subtitle?: string;
   features?: string[];
-  reversed?: boolean;
+  isLast?: boolean;
 }) {
   const ref = useReveal();
   const [hovered, setHovered] = useState(false);
   return (
     <div
       ref={ref}
-      className="reveal group relative overflow-hidden rounded-[24px] cursor-pointer"
-      style={{ background: C.ivory, border: `1px solid ${C.border}` }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      className="reveal grid md:grid-cols-[minmax(0,340px)_1fr] gap-8 lg:gap-14 py-10 lg:py-12"
+      style={{
+        borderBottom: isLast ? "none" : `1px solid ${C.border}`,
+      }}
     >
-      <div className="img-zoom aspect-[4/3]">
+      <div
+        className="img-zoom rounded-[24px] overflow-hidden aspect-[4/3] md:aspect-square cursor-pointer"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
         <img
           src={img}
           alt={title}
@@ -775,22 +838,14 @@ function TreatmentCard({
           }}
         />
       </div>
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(to top, rgba(40,35,31,0.75) 0%, transparent 55%)",
-        }}
-      />
-      <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+      <div className="flex flex-col justify-center">
         <div
           style={{
-            fontFamily: "var(--font-body)",
-            fontSize: 11,
-            fontWeight: 700,
-            letterSpacing: "0.2em",
-            color: C.rose,
-            marginBottom: 8,
+            fontFamily: "var(--font-display)",
+            fontSize: 20,
+            fontWeight: 400,
+            color: C.espresso,
+            marginBottom: 12,
           }}
         >
           {tag}
@@ -798,11 +853,11 @@ function TreatmentCard({
         <h3
           style={{
             fontFamily: "var(--font-display)",
-            fontSize: 28,
+            fontSize: "clamp(30px, 3.2vw, 44px)",
             fontWeight: 400,
-            color: C.white,
+            color: C.espresso,
             lineHeight: 1.1,
-            marginBottom: 8,
+            marginBottom: subtitle ? 8 : 16,
           }}
         >
           {title}
@@ -813,8 +868,8 @@ function TreatmentCard({
               fontFamily: "var(--font-body)",
               fontSize: 15,
               fontWeight: 600,
-              color: C.white,
-              marginBottom: 12,
+              color: C.terracotta,
+              marginBottom: 16,
             }}
           >
             {subtitle}
@@ -823,60 +878,55 @@ function TreatmentCard({
         <p
           style={{
             fontFamily: "var(--font-body)",
-            fontSize: 14,
-            color: "rgba(255,255,255,0.75)",
-            lineHeight: 1.6,
-            marginBottom: 16,
+            fontSize: 15,
+            color: C.warmGrey,
+            lineHeight: 1.7,
+            marginBottom: 20,
+            maxWidth: 560,
           }}
         >
           {desc}
         </p>
         {features && (
           <ul
-            className="mb-5 space-y-1.5"
+            className="mb-8 space-y-2"
             style={{
               fontFamily: "var(--font-body)",
-              fontSize: 13,
-              color: "rgba(255,255,255,0.85)",
+              fontSize: 14,
+              color: C.warmGrey,
               lineHeight: 1.5,
             }}
           >
             {features.map((feature) => (
               <li key={feature} className="flex items-start gap-2">
-                <span aria-hidden="true">•</span>
+                <span aria-hidden="true" style={{ color: C.terracotta }}>
+                  •
+                </span>
                 <span>{feature}</span>
               </li>
             ))}
           </ul>
         )}
-        <div
-          className="flex items-center gap-2"
-          style={{
-            color: C.rose,
-            fontFamily: "var(--font-body)",
-            fontSize: 13,
-            fontWeight: 600,
-          }}
-        >
-          {features ? "View Details" : `Explore ${title}`}
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
+        <div>
+          <button
+            className="px-7 py-3.5 rounded-full font-semibold transition-all duration-300"
             style={{
-              transform: hovered ? "translateX(4px)" : "translateX(0)",
-              transition: "transform 0.3s",
+              background: C.terracotta,
+              color: C.white,
+              fontFamily: "var(--font-body)",
+              fontSize: 13,
+              fontWeight: 600,
+              letterSpacing: "0.02em",
+              border: "none",
+              cursor: "pointer",
             }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "#a05a3e")}
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.background = C.terracotta)
+            }
           >
-            <path
-              d="M3 8h10M9 4l4 4-4 4"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+            View Details
+          </button>
         </div>
       </div>
     </div>
