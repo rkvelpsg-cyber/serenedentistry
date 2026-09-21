@@ -3388,7 +3388,14 @@ function MobileBookingBar({ onBooking }: { onBooking: () => void }) {
 }
 
 // ─── SEO helper ───────────────────────────────────────────────────────────────
-function useSeo(title: string, description: string, keywords?: string[]) {
+const SITE_URL = "https://serenedentalwhitefield.com";
+
+function useSeo(
+  title: string,
+  description: string,
+  keywords?: string[],
+  path = "/",
+) {
   useEffect(() => {
     document.title = title;
     const setMeta = (name: string, content: string) => {
@@ -3402,8 +3409,54 @@ function useSeo(title: string, description: string, keywords?: string[]) {
     };
     setMeta("description", description);
     if (keywords && keywords.length) setMeta("keywords", keywords.join(", "));
-  }, [title, description, keywords ? keywords.join(",") : undefined]);
+
+    const canonicalUrl = `${SITE_URL}${path}`;
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.setAttribute("rel", "canonical");
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute("href", canonicalUrl);
+  }, [title, description, keywords ? keywords.join(",") : undefined, path]);
 }
+
+// ─── Structured data (JSON-LD) for local business / dentist rich results ───────
+function useLocalBusinessSchema() {
+  useEffect(() => {
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "Dentist",
+      name: "Serene Dentistry",
+      image: `${SITE_URL}/og-image.jpg`,
+      url: SITE_URL,
+      telephone: "+91-8971919743",
+      email: "serenedentistrywhitefield@gmail.com",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Whitefield, Bengaluru",
+        addressRegion: "Karnataka",
+        addressCountry: "IN",
+      },
+      priceRange: "$$",
+      medicalSpecialty: [
+        "Orthodontics",
+        "Cosmetic Dentistry",
+        "Oral Surgery",
+        "Dental Implants",
+      ],
+    };
+    let script = document.getElementById("local-business-schema");
+    if (!script) {
+      script = document.createElement("script");
+      script.id = "local-business-schema";
+      script.setAttribute("type", "application/ld+json");
+      document.head.appendChild(script);
+    }
+    script.textContent = JSON.stringify(schema);
+  }, []);
+}
+
 
 // ─── Scroll management on route change ─────────────────────────────────────────
 function ScrollManager() {
@@ -3433,6 +3486,7 @@ function HomePage({ onBooking }: { onBooking: () => void }) {
       "orthodontics",
       "smile makeover",
     ],
+    "/",
   );
   return (
     <main>
@@ -3465,6 +3519,7 @@ function TreatmentDetailPage({ onBooking }: { onBooking: () => void }) {
       ? treatment.metaDescription
       : "The treatment you're looking for could not be found at Serene Dentistry.",
     treatment?.keywords,
+    `/treatments/${slug ?? ""}`,
   );
 
   if (!treatment) {
@@ -3846,6 +3901,8 @@ function AppShell() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const lastScrollY = useRef(0);
   const onBooking = () => setBookingOpen(true);
+
+  useLocalBusinessSchema();
 
   useEffect(() => {
     lastScrollY.current = window.scrollY;
