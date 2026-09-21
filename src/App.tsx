@@ -64,9 +64,11 @@ function useReveal() {
 
 function Header({
   scrolled,
+  hidden,
   onBooking,
 }: {
   scrolled: boolean;
+  hidden: boolean;
   onBooking: () => void;
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -122,7 +124,13 @@ function Header({
 
   return (
     <>
-      <header className="fixed left-0 right-0 top-0 z-50 w-full px-4 pt-4 transition-all duration-500 lg:px-8">
+      <header
+        className="fixed left-0 right-0 top-0 z-50 w-full px-4 pt-4 transition-all duration-500 lg:px-8"
+        style={{
+          transform: hidden ? "translateY(-150%)" : "translateY(0)",
+          opacity: hidden ? 0 : 1,
+        }}
+      >
         <div className="mx-auto max-w-[1280px] rounded-[28px] border border-[rgba(40,35,31,0.08)] bg-white/95 px-5 shadow-[0_12px_30px_rgba(40,35,31,0.08)] backdrop-blur-sm lg:px-6">
           <div className="flex h-16 items-center justify-between lg:h-20">
             {/* Logo */}
@@ -1097,7 +1105,7 @@ function DoctorSection() {
             <div className="img-zoom rounded-[32px] overflow-hidden aspect-[3/4]">
               <img
                 src={IMG.doctor}
-                alt="Dr. Vishal, Lead Dentist"
+                alt="Dr. Vishal K, Lead Dentist"
                 className="w-full h-full object-cover"
                 style={{ objectPosition: "center top" }}
               />
@@ -1131,7 +1139,7 @@ function DoctorSection() {
                   marginTop: 2,
                 }}
               >
-                Dr. Vishal
+                Dr. Vishal K
               </div>
             </div>
           </div>
@@ -1163,7 +1171,7 @@ function DoctorSection() {
                 marginBottom: 8,
               }}
             >
-              Dr. Vishal
+              Dr. Vishal K
             </h2>
             <div
               style={{
@@ -1184,7 +1192,7 @@ function DoctorSection() {
                 marginBottom: 20,
               }}
             >
-              Dr. Vishal is the founder of Serene Dentistry, with a simple
+              Dr. Vishal K is the founder of Serene Dentistry, with a simple
               belief that every patient deserves unhurried attention,
               compassionate care, and clinical precision in equal measure.
             </p>
@@ -1250,7 +1258,7 @@ function DoctorSection() {
             <div className="img-zoom aspect-[3/4] overflow-hidden rounded-[32px]">
               <img
                 src={new URL("../drSachin.jpg", import.meta.url).href}
-                alt="Dr. Sachin, Dentist"
+                alt="Dr. Sachin K, Dentist"
                 className="h-full w-full object-cover"
                 style={{ objectPosition: "center top" }}
               />
@@ -1284,7 +1292,7 @@ function DoctorSection() {
                   marginTop: 2,
                 }}
               >
-                Dr. Sachin
+                Dr. Sachin K
               </div>
             </div>
           </div>
@@ -1315,7 +1323,7 @@ function DoctorSection() {
                 marginBottom: 8,
               }}
             >
-              Dr. Sachin
+              Dr. Sachin K
             </h2>
             <div
               style={{
@@ -3352,17 +3360,35 @@ function MobileBookingBar({ onBooking }: { onBooking: () => void }) {
 // ─── Main App ─────────────────────────────────────────────────────────────────
 export default function App() {
   const [scrolled, setScrolled] = useState(false);
+  const [headerHidden, setHeaderHidden] = useState(false);
   const [bookingOpen, setBookingOpen] = useState(false);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
+    lastScrollY.current = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 60);
+      if (y <= 60) {
+        setHeaderHidden(false);
+      } else if (y > lastScrollY.current) {
+        setHeaderHidden(true);
+      } else {
+        setHeaderHidden(false);
+      }
+      lastScrollY.current = y;
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
     <div style={{ background: C.ivory }}>
-      <Header scrolled={scrolled} onBooking={() => setBookingOpen(true)} />
+      <Header
+        scrolled={scrolled}
+        hidden={headerHidden}
+        onBooking={() => setBookingOpen(true)}
+      />
       <main>
         <Hero onBooking={() => setBookingOpen(true)} />
         <PhilosophySection />
