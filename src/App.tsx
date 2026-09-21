@@ -3457,7 +3457,6 @@ function useLocalBusinessSchema() {
   }, []);
 }
 
-
 // ─── Scroll management on route change ─────────────────────────────────────────
 function ScrollManager() {
   const location = useLocation();
