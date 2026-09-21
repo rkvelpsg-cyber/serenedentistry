@@ -662,33 +662,6 @@ function PhilosophySection() {
                 className="w-full h-full object-cover"
               />
             </div>
-            {/* Floating stat */}
-            <div
-              className="absolute -bottom-8 -left-8 hidden lg:block rounded-2xl px-6 py-5 shadow-xl"
-              style={{ background: C.white, border: `1px solid ${C.border}` }}
-            >
-              <div
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 42,
-                  fontWeight: 400,
-                  color: C.terracotta,
-                  lineHeight: 1,
-                }}
-              >
-                14+
-              </div>
-              <div
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 12,
-                  color: C.warmGrey,
-                  marginTop: 4,
-                }}
-              >
-                Years of Excellence
-              </div>
-            </div>
             {/* Floating badge */}
             <div
               className="absolute -top-6 -right-6 hidden lg:flex flex-col items-center justify-center rounded-full w-24 h-24 shadow-lg"
@@ -733,27 +706,34 @@ function TreatmentsSection() {
   const ref = useReveal();
   const categories = [
     {
+      title: "Orthodontic Care",
+      subtitle: "Aligners & Braces",
+      desc: "Personalized orthodontic care designed to improve alignment, function, and facial harmony through modern treatment solutions tailored to every smile.",
+      features: [
+        "Clear Aligners",
+        "Ceramic & Metal Braces",
+        "Digital Treatment Planning",
+        "Retainers & Smile Maintenance",
+      ],
+      img: new URL("./orthodonticsscare.png", import.meta.url).href,
+      tag: "01",
+    },
+    {
       title: "General Dentistry",
       desc: "Comprehensive preventive care and routine treatments to keep your smile healthy for life.",
       img: IMG.clinic1,
-      tag: "01",
+      tag: "02",
     },
     {
       title: "Cosmetic Dentistry",
       desc: "Transform your smile with veneers, whitening and composite bonding tailored to your natural beauty.",
       img: IMG.teeth1,
-      tag: "02",
+      tag: "03",
     },
     {
       title: "Restorative Dentistry",
       desc: "Implants, crowns and bridges crafted with precision to restore function and aesthetics.",
       img: IMG.clinic2,
-      tag: "03",
-    },
-    {
-      title: "Orthodontic Care",
-      desc: "Discreet clear aligners and modern orthodontic solutions for a perfectly aligned smile.",
-      img: IMG.teeth2,
       tag: "04",
     },
   ];
@@ -828,11 +808,15 @@ function TreatmentCard({
   desc,
   img,
   tag,
+  subtitle,
+  features,
 }: {
   title: string;
   desc: string;
   img: string;
   tag: string;
+  subtitle?: string;
+  features?: string[];
   reversed?: boolean;
 }) {
   const ref = useReveal();
@@ -888,6 +872,19 @@ function TreatmentCard({
         >
           {title}
         </h3>
+        {subtitle && (
+          <div
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: 15,
+              fontWeight: 600,
+              color: C.white,
+              marginBottom: 12,
+            }}
+          >
+            {subtitle}
+          </div>
+        )}
         <p
           style={{
             fontFamily: "var(--font-body)",
@@ -899,6 +896,24 @@ function TreatmentCard({
         >
           {desc}
         </p>
+        {features && (
+          <ul
+            className="mb-5 space-y-1.5"
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: 13,
+              color: "rgba(255,255,255,0.85)",
+              lineHeight: 1.5,
+            }}
+          >
+            {features.map((feature) => (
+              <li key={feature} className="flex items-start gap-2">
+                <span aria-hidden="true">•</span>
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+        )}
         <div
           className="flex items-center gap-2"
           style={{
@@ -908,7 +923,7 @@ function TreatmentCard({
             fontWeight: 600,
           }}
         >
-          Explore {title}
+          {features ? "View Details" : `Explore ${title}`}
           <svg
             width="16"
             height="16"

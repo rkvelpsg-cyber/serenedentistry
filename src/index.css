@@ -32,6 +32,13 @@ body {
   -webkit-font-smoothing: antialiased;
   font-size: 16px;
   letter-spacing: 0.01em;
+  zoom: 1.06;
+}
+
+@media (max-width: 768px) {
+  body {
+    zoom: 1.03;
+  }
 }
 
 .font-display {
