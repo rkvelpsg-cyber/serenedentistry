@@ -625,43 +625,10 @@ function PhilosophySection() {
           <div className="relative">
             <div className="img-zoom rounded-[32px] overflow-hidden aspect-[3/4]">
               <img
-                src={new URL("./hall.JPG", import.meta.url).href}
+                src={new URL("./hall.jpg", import.meta.url).href}
                 alt="Comfortable clinic waiting area"
                 className="w-full h-full object-cover"
               />
-            </div>
-            {/* Floating badge */}
-            <div
-              className="absolute -top-6 -right-6 hidden lg:flex flex-col items-center justify-center rounded-full w-24 h-24 shadow-lg"
-              style={{ background: C.cream, border: `1px solid ${C.border}` }}
-            >
-              <div
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 22,
-                  fontWeight: 400,
-                  color: C.espresso,
-                  lineHeight: 1,
-                }}
-              >
-                98%
-              </div>
-              <div
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 9,
-                  fontWeight: 600,
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  color: C.warmGrey,
-                  textAlign: "center",
-                  marginTop: 2,
-                }}
-              >
-                Patient
-                <br />
-                Satisfaction
-              </div>
             </div>
           </div>
         </div>
