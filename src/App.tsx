@@ -62,38 +62,6 @@ function useReveal() {
 
 // ─── Sub-components ──────────────────────────────────────────────────────────
 
-function AnnouncementBar() {
-  const [visible, setVisible] = useState(true);
-  if (!visible) return null;
-  return (
-    <div
-      style={{ background: C.espresso, color: C.cream }}
-      className="relative py-2.5 px-6 text-center text-sm tracking-wide"
-    >
-      <span style={{ fontFamily: "var(--font-body)", fontWeight: 400 }}>
-        Now welcoming new patients —{" "}
-        <span style={{ color: C.rose }}>
-          Schedule your first consultation today.
-        </span>
-      </span>
-      <button
-        onClick={() => setVisible(false)}
-        className="absolute right-4 top-1/2 -translate-y-1/2 opacity-50 hover:opacity-100 transition-opacity"
-        aria-label="Close"
-      >
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path
-            d="M12 4L4 12M4 4l8 8"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-          />
-        </svg>
-      </button>
-    </div>
-  );
-}
-
 function Header({
   scrolled,
   onBooking,
@@ -657,7 +625,7 @@ function PhilosophySection() {
           <div className="relative">
             <div className="img-zoom rounded-[32px] overflow-hidden aspect-[3/4]">
               <img
-                src={IMG.clinic3}
+                src={new URL("./hall.JPG", import.meta.url).href}
                 alt="Comfortable clinic waiting area"
                 className="w-full h-full object-cover"
               />
@@ -3588,7 +3556,6 @@ export default function App() {
 
   return (
     <div style={{ background: C.ivory }}>
-      <AnnouncementBar />
       <Header scrolled={scrolled} onBooking={() => setBookingOpen(true)} />
       <main>
         <Hero onBooking={() => setBookingOpen(true)} />
