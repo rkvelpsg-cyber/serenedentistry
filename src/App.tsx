@@ -1,4 +1,13 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  useParams,
+  useLocation,
+} from "react-router-dom";
+import { TREATMENTS, getTreatmentBySlug } from "./treatmentsData";
 
 // ─── Colour tokens ──────────────────────────────────────────────────────────
 const C = {
@@ -75,78 +84,12 @@ function Header({
   const [treatmentsOpen, setTreatmentsOpen] = useState(false);
 
   const navLinks = [
-    { label: "About", href: "#about" },
-    { label: "Treatments", href: "#treatments", hasMega: true },
-    { label: "Our Team", href: "#team" },
-    { label: "Patient Stories", href: "#testimonials" },
-    { label: "Journal", href: "#journal" },
-    { label: "Contact", href: "#contact" },
-  ];
-
-  const treatmentCategories = [
-    {
-      title: "Orthodontics Care",
-      items: [
-        "Clear Aligners",
-        "Ceramic & Metal Braces",
-        "Digital Treatment Planning",
-        "Retainers & Smile Maintenance",
-      ],
-    },
-    {
-      title: "Digital Smile Designing",
-      items: [
-        "Facial Smile Analysis",
-        "Digital Smile Simulation",
-        "Smile Makeover Planning",
-        "Personalized Treatment Design",
-      ],
-    },
-    {
-      title: "General Dentistry",
-      items: [
-        "Preventive Dental Care",
-        "Professional Teeth Cleaning",
-        "Tooth Coloured Fillings",
-        "Root Canal Treatment",
-      ],
-    },
-    {
-      title: "Dental Implants",
-      items: [
-        "Single Tooth Implants",
-        "Multiple Teeth Replacement",
-        "Full Mouth Implants",
-        "Implant Supported Prostheses",
-      ],
-    },
-    {
-      title: "Veneers & Laminates",
-      items: [
-        "Porcelain Veneers",
-        "Ultra Thin Laminates",
-        "Smile Makeovers",
-        "Minimal Preparation Dentistry",
-      ],
-    },
-    {
-      title: "Oral & Maxillofacial Surgery",
-      items: [
-        "Wisdom Tooth Removal",
-        "Surgical Extractions",
-        "Impacted Teeth Treatment",
-        "Jaw Corrective Surgery",
-      ],
-    },
-    {
-      title: "Full Mouth Rehabilitation",
-      items: [
-        "Full Mouth Reconstruction",
-        "Bite Rehabilitation",
-        "Worn Teeth Restoration",
-        "Comprehensive Treatment Planning",
-      ],
-    },
+    { label: "About", href: "/#about" },
+    { label: "Treatments", href: "/#treatments", hasMega: true },
+    { label: "Our Team", href: "/#team" },
+    { label: "Patient Stories", href: "/#testimonials" },
+    { label: "Journal", href: "/#journal" },
+    { label: "Contact", href: "/#contact" },
   ];
 
   return (
@@ -161,8 +104,8 @@ function Header({
         <div className="mx-auto max-w-[1280px] rounded-[28px] border border-[rgba(40,35,31,0.08)] bg-white/95 px-5 shadow-[0_12px_30px_rgba(40,35,31,0.08)] backdrop-blur-sm lg:px-6">
           <div className="flex h-16 items-center justify-between lg:h-20">
             {/* Logo */}
-            <a
-              href="#home"
+            <Link
+              to="/"
               className="flex items-center gap-3"
               style={{ textDecoration: "none" }}
             >
@@ -176,7 +119,7 @@ function Header({
                   display: "block",
                 }}
               />
-            </a>
+            </Link>
 
             {/* Desktop nav */}
             <nav className="hidden items-center gap-7 lg:flex">
@@ -213,10 +156,12 @@ function Header({
                           border: `1px solid ${C.border}`,
                         }}
                       >
-                        {treatmentCategories.map((cat) => (
-                          <div key={cat.title}>
-                            <div
+                        {TREATMENTS.map((cat) => (
+                          <div key={cat.slug}>
+                            <Link
+                              to={`/treatments/${cat.slug}`}
                               style={{
+                                display: "block",
                                 fontFamily: "var(--font-body)",
                                 fontSize: 10,
                                 fontWeight: 700,
@@ -224,14 +169,15 @@ function Header({
                                 textTransform: "uppercase",
                                 color: C.terracotta,
                                 marginBottom: 12,
+                                textDecoration: "none",
                               }}
                             >
                               {cat.title}
-                            </div>
-                            {cat.items.map((item) => (
-                              <a
+                            </Link>
+                            {cat.features.map((item) => (
+                              <Link
                                 key={item}
-                                href="#treatments"
+                                to={`/treatments/${cat.slug}`}
                                 style={{
                                   display: "block",
                                   fontFamily: "var(--font-body)",
@@ -249,7 +195,7 @@ function Header({
                                 }
                               >
                                 {item}
-                              </a>
+                              </Link>
                             ))}
                           </div>
                         ))}
@@ -678,93 +624,6 @@ function PhilosophySection() {
 
 function TreatmentsSection() {
   const ref = useReveal();
-  const categories = [
-    {
-      title: "Orthodontics Care",
-      subtitle: "Aligners & Braces",
-      desc: "Personalized orthodontic care designed to improve alignment, function, and facial harmony through modern treatment solutions tailored to every smile.",
-      features: [
-        "Clear Aligners",
-        "Ceramic & Metal Braces",
-        "Digital Treatment Planning",
-        "Retainers & Smile Maintenance",
-      ],
-      img: new URL("./orthodonticsscare.png", import.meta.url).href,
-      tag: "01",
-    },
-    {
-      title: "Digital Smile Designing",
-      desc: "Every exceptional smile begins with thoughtful planning. Our digital smile design process combines facial aesthetics, precision, and technology to create smiles that are uniquely yours.",
-      features: [
-        "Facial Smile Analysis",
-        "Digital Smile Simulation",
-        "Smile Makeover Planning",
-        "Personalized Treatment Design",
-      ],
-      img: new URL("./digital.png", import.meta.url).href,
-      tag: "02",
-    },
-    {
-      title: "General Dentistry",
-      desc: "Healthy smiles begin with prevention. From routine care to restorative treatments, we help preserve your oral health through precise, minimally invasive dentistry.",
-      features: [
-        "Preventive Dental Care",
-        "Professional Teeth Cleaning",
-        "Tooth Coloured Fillings",
-        "Root Canal Treatment",
-      ],
-      img: new URL("./generaldentistry.png", import.meta.url).href,
-      tag: "03",
-    },
-    {
-      title: "Dental Implants",
-      desc: "Restore missing teeth with implant solutions designed for strength, stability, and long-term success. Every treatment is planned for seamless, natural-looking results.",
-      features: [
-        "Single Tooth Implants",
-        "Multiple Teeth Replacement",
-        "Full Mouth Implants",
-        "Implant Supported Prostheses",
-      ],
-      img: new URL("./implants.png", import.meta.url).href,
-      tag: "04",
-    },
-    {
-      title: "Veneers & Laminates",
-      desc: "Subtle enhancements create lasting impressions. Our veneers and laminates are crafted to enhance your smile while preserving a naturally beautiful appearance.",
-      features: [
-        "Porcelain Veneers",
-        "Ultra Thin Laminates",
-        "Smile Makeovers",
-        "Minimal Preparation Dentistry",
-      ],
-      img: new URL("./veneers.png", import.meta.url).href,
-      tag: "05",
-    },
-    {
-      title: "Oral & Maxillofacial Surgery",
-      desc: "Advanced surgical care delivered with meticulous planning, modern techniques, and a strong focus on comfort, safety, and predictable outcomes.",
-      features: [
-        "Wisdom Tooth Removal",
-        "Surgical Extractions",
-        "Impacted Teeth Treatment",
-        "Jaw Corrective Surgery",
-      ],
-      img: new URL("./oralmaxi.png", import.meta.url).href,
-      tag: "06",
-    },
-    {
-      title: "Full Mouth Rehabilitation",
-      desc: "Comprehensive rehabilitation that restores function, aesthetics, and confidence through carefully coordinated treatment planning designed for long-term oral health.",
-      features: [
-        "Full Mouth Reconstruction",
-        "Bite Rehabilitation",
-        "Worn Teeth Restoration",
-        "Comprehensive Treatment Planning",
-      ],
-      img: new URL("./fullmouth.png", import.meta.url).href,
-      tag: "07",
-    },
-  ];
 
   return (
     <section
@@ -805,11 +664,11 @@ function TreatmentsSection() {
         </div>
 
         <div>
-          {categories.map((cat, i) => (
+          {TREATMENTS.map((cat, i) => (
             <TreatmentCard
-              key={cat.title}
+              key={cat.slug}
               {...cat}
-              isLast={i === categories.length - 1}
+              isLast={i === TREATMENTS.length - 1}
             />
           ))}
         </div>
@@ -836,6 +695,7 @@ function TreatmentsSection() {
 }
 
 function TreatmentCard({
+  slug,
   title,
   desc,
   img,
@@ -844,6 +704,7 @@ function TreatmentCard({
   features,
   isLast,
 }: {
+  slug: string;
   title: string;
   desc: string;
   img: string;
@@ -947,8 +808,9 @@ function TreatmentCard({
           </ul>
         )}
         <div>
-          <button
-            className="px-7 py-3.5 rounded-full font-semibold transition-all duration-300"
+          <Link
+            to={`/treatments/${slug}`}
+            className="inline-block px-7 py-3.5 rounded-full font-semibold transition-all duration-300"
             style={{
               background: C.terracotta,
               color: C.white,
@@ -956,8 +818,7 @@ function TreatmentCard({
               fontSize: 13,
               fontWeight: 600,
               letterSpacing: "0.02em",
-              border: "none",
-              cursor: "pointer",
+              textDecoration: "none",
             }}
             onMouseEnter={(e) => (e.currentTarget.style.background = "#a05a3e")}
             onMouseLeave={(e) =>
@@ -965,7 +826,7 @@ function TreatmentCard({
             }
           >
             View Details
-          </button>
+          </Link>
         </div>
       </div>
     </div>
@@ -3442,12 +3303,463 @@ function MobileBookingBar({ onBooking }: { onBooking: () => void }) {
   );
 }
 
-// ─── Main App ─────────────────────────────────────────────────────────────────
-export default function App() {
+// ─── SEO helper ───────────────────────────────────────────────────────────────
+function useSeo(title: string, description: string, keywords?: string[]) {
+  useEffect(() => {
+    document.title = title;
+    const setMeta = (name: string, content: string) => {
+      let tag = document.querySelector(`meta[name="${name}"]`);
+      if (!tag) {
+        tag = document.createElement("meta");
+        tag.setAttribute("name", name);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute("content", content);
+    };
+    setMeta("description", description);
+    if (keywords && keywords.length) setMeta("keywords", keywords.join(", "));
+  }, [title, description, keywords ? keywords.join(",") : undefined]);
+}
+
+// ─── Scroll management on route change ─────────────────────────────────────────
+function ScrollManager() {
+  const location = useLocation();
+  useEffect(() => {
+    if (location.hash) {
+      const el = document.getElementById(location.hash.slice(1));
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+        return;
+      }
+    }
+    window.scrollTo(0, 0);
+  }, [location.pathname, location.hash]);
+  return null;
+}
+
+function HomePage({ onBooking }: { onBooking: () => void }) {
+  useSeo(
+    "Serene Dentistry | Personalised Dental Care & Smile Design",
+    "Serene Dentistry offers orthodontics, digital smile design, general dentistry, dental implants, veneers, oral surgery and full mouth rehabilitation with unhurried, personalised care.",
+    [
+      "dentist",
+      "dental clinic",
+      "cosmetic dentistry",
+      "dental implants",
+      "orthodontics",
+      "smile makeover",
+    ],
+  );
+  return (
+    <main>
+      <Hero onBooking={onBooking} />
+      <PhilosophySection />
+      <TreatmentsSection />
+      <ClinicExperience />
+      <DoctorSection />
+      <TechnologySection />
+      <BeforeAfterSection />
+      <ClinicGallerySection />
+      <TestimonialsSection />
+      <PatientVideoSection />
+      <ProcessSection />
+      <CTASection onBooking={onBooking} />
+      <JournalSection />
+    </main>
+  );
+}
+
+function TreatmentDetailPage({ onBooking }: { onBooking: () => void }) {
+  const { slug } = useParams();
+  const treatment = getTreatmentBySlug(slug);
+
+  useSeo(
+    treatment ? `${treatment.metaTitle}` : "Treatment Not Found | Serene Dentistry",
+    treatment
+      ? treatment.metaDescription
+      : "The treatment you're looking for could not be found at Serene Dentistry.",
+    treatment?.keywords,
+  );
+
+  if (!treatment) {
+    return (
+      <main
+        className="flex flex-col items-center justify-center px-6 py-40 text-center"
+        style={{ background: C.ivory }}
+      >
+        <h1
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(32px, 4vw, 48px)",
+            color: C.espresso,
+            marginBottom: 16,
+          }}
+        >
+          Treatment Not Found
+        </h1>
+        <Link
+          to="/"
+          style={{
+            color: C.terracotta,
+            fontFamily: "var(--font-body)",
+            fontWeight: 600,
+            textDecoration: "none",
+          }}
+        >
+          ← Back to Home
+        </Link>
+      </main>
+    );
+  }
+
+  return (
+    <main style={{ background: C.ivory }}>
+      {/* Hero */}
+      <section className="pt-40 pb-20 lg:pt-48 lg:pb-28">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-14 items-center">
+          <div>
+            <div className="flex items-center gap-3 mb-5">
+              <span
+                aria-hidden="true"
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: "50%",
+                  background: C.terracotta,
+                  display: "inline-block",
+                }}
+              />
+              <span
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: 11,
+                  fontWeight: 700,
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  color: C.terracotta,
+                }}
+              >
+                Service Detail
+              </span>
+              <div className="h-px w-8" style={{ background: C.border }} />
+            </div>
+            <h1
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(40px, 5vw, 64px)",
+                fontWeight: 400,
+                color: C.espresso,
+                letterSpacing: "-0.02em",
+                lineHeight: 1.05,
+                marginBottom: 24,
+              }}
+            >
+              {treatment.title}
+            </h1>
+            {treatment.heroParagraphs.map((p, i) => (
+              <p
+                key={i}
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: 16,
+                  color: C.warmGrey,
+                  lineHeight: 1.8,
+                  marginBottom: 16,
+                  maxWidth: 560,
+                }}
+              >
+                {p}
+              </p>
+            ))}
+            <div className="grid grid-cols-2 gap-x-8 gap-y-4 mt-8">
+              {treatment.checklist.map((item) => (
+                <div key={item} className="flex items-center gap-2">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    style={{ flex: "none" }}
+                  >
+                    <circle cx="10" cy="10" r="10" fill="#DCEFE1" />
+                    <path
+                      d="M6 10.3l2.4 2.4L14 7.3"
+                      stroke="#2F8F4E"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <span
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: 14,
+                      color: C.espresso,
+                      fontWeight: 500,
+                    }}
+                  >
+                    {item}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="img-zoom rounded-[28px] overflow-hidden aspect-[4/3]">
+            <img
+              src={treatment.img}
+              alt={treatment.title}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* What We Provide / Expected Result */}
+      <section className="pb-24 lg:pb-32">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-10 grid md:grid-cols-2 gap-6">
+          <div
+            className="rounded-[24px] p-8 lg:p-10"
+            style={{
+              background: C.white,
+              border: `1px solid ${C.border}`,
+              borderTop: `3px solid ${C.terracotta}`,
+            }}
+          >
+            <span
+              className="inline-block px-4 py-1.5 rounded-full mb-6"
+              style={{
+                background: C.cream,
+                color: C.terracotta,
+                fontFamily: "var(--font-body)",
+                fontSize: 11,
+                fontWeight: 700,
+                letterSpacing: "0.05em",
+              }}
+            >
+              What We Provide
+            </span>
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(24px, 2.6vw, 32px)",
+                fontWeight: 400,
+                color: C.espresso,
+                lineHeight: 1.25,
+                marginBottom: 12,
+              }}
+            >
+              {treatment.whatWeProvide.heading}
+            </h2>
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: 14,
+                color: C.warmGrey,
+                lineHeight: 1.7,
+                marginBottom: 24,
+              }}
+            >
+              {treatment.whatWeProvide.desc}
+            </p>
+            <ul className="space-y-3">
+              {treatment.whatWeProvide.items.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-center gap-3"
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: 14,
+                    color: C.espresso,
+                  }}
+                >
+                  <span
+                    aria-hidden="true"
+                    style={{
+                      width: 6,
+                      height: 6,
+                      borderRadius: "50%",
+                      background: C.terracotta,
+                      display: "inline-block",
+                      flex: "none",
+                    }}
+                  />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div
+            className="rounded-[24px] p-8 lg:p-10"
+            style={{
+              background: C.white,
+              border: `1px solid ${C.border}`,
+              borderTop: `3px solid ${C.terracotta}`,
+            }}
+          >
+            <span
+              className="inline-block px-4 py-1.5 rounded-full mb-6"
+              style={{
+                background: C.cream,
+                color: C.terracotta,
+                fontFamily: "var(--font-body)",
+                fontSize: 11,
+                fontWeight: 700,
+                letterSpacing: "0.05em",
+              }}
+            >
+              Expected Result
+            </span>
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(24px, 2.6vw, 32px)",
+                fontWeight: 400,
+                color: C.espresso,
+                lineHeight: 1.25,
+                marginBottom: 12,
+              }}
+            >
+              Life After Treatment
+            </h2>
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: 14,
+                color: C.warmGrey,
+                lineHeight: 1.7,
+                marginBottom: 24,
+              }}
+            >
+              {treatment.expectedResult.desc}
+            </p>
+            <ul className="space-y-3">
+              {treatment.expectedResult.items.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-center gap-3"
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: 14,
+                    color: C.espresso,
+                  }}
+                >
+                  <span
+                    aria-hidden="true"
+                    style={{
+                      width: 6,
+                      height: 6,
+                      borderRadius: "50%",
+                      background: C.terracotta,
+                      display: "inline-block",
+                      flex: "none",
+                    }}
+                  />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="pb-24 lg:pb-32">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-10">
+          <div
+            className="relative overflow-hidden rounded-[32px] p-10 lg:p-16 grid lg:grid-cols-[1fr_auto] gap-10 items-center"
+            style={{ background: C.espresso }}
+          >
+            <div>
+              <span
+                className="inline-block px-4 py-1.5 rounded-full mb-6"
+                style={{
+                  background: "rgba(255,255,255,0.1)",
+                  color: C.rose,
+                  fontFamily: "var(--font-body)",
+                  fontSize: 11,
+                  fontWeight: 700,
+                  letterSpacing: "0.05em",
+                }}
+              >
+                Let's Get Started
+              </span>
+              <h2
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "clamp(28px, 3.2vw, 44px)",
+                  fontWeight: 400,
+                  color: C.white,
+                  lineHeight: 1.15,
+                  marginBottom: 16,
+                  maxWidth: 640,
+                }}
+              >
+                {treatment.ctaQuestion}
+              </h2>
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: 15,
+                  color: "rgba(255,255,255,0.75)",
+                  lineHeight: 1.7,
+                  maxWidth: 560,
+                }}
+              >
+                {treatment.ctaDesc}
+              </p>
+            </div>
+            <div className="flex flex-col gap-3">
+              <button
+                onClick={onBooking}
+                className="px-8 py-4 rounded-full font-semibold whitespace-nowrap transition-all duration-300"
+                style={{
+                  background: C.terracotta,
+                  color: C.white,
+                  fontFamily: "var(--font-body)",
+                  fontSize: 14,
+                  fontWeight: 600,
+                  border: "none",
+                  cursor: "pointer",
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.background = "#a05a3e")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.background = C.terracotta)
+                }
+              >
+                Book Appointment
+              </button>
+              <Link
+                to="/"
+                className="px-8 py-4 rounded-full font-semibold whitespace-nowrap flex items-center justify-center gap-2 transition-all duration-300"
+                style={{
+                  background: "transparent",
+                  border: "1px solid rgba(255,255,255,0.3)",
+                  color: C.white,
+                  fontFamily: "var(--font-body)",
+                  fontSize: 14,
+                  fontWeight: 500,
+                  textDecoration: "none",
+                }}
+              >
+                ← Back to Home
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function AppShell() {
   const [scrolled, setScrolled] = useState(false);
   const [headerHidden, setHeaderHidden] = useState(false);
   const [bookingOpen, setBookingOpen] = useState(false);
   const lastScrollY = useRef(0);
+  const onBooking = () => setBookingOpen(true);
 
   useEffect(() => {
     lastScrollY.current = window.scrollY;
@@ -3469,30 +3781,28 @@ export default function App() {
 
   return (
     <div style={{ background: C.ivory }}>
-      <Header
-        scrolled={scrolled}
-        hidden={headerHidden}
-        onBooking={() => setBookingOpen(true)}
-      />
-      <main>
-        <Hero onBooking={() => setBookingOpen(true)} />
-        <PhilosophySection />
-        <TreatmentsSection />
-        <ClinicExperience />
-        <DoctorSection />
-        <TechnologySection />
-        <BeforeAfterSection />
-        <ClinicGallerySection />
-        <TestimonialsSection />
-        <PatientVideoSection />
-        <ProcessSection />
-        <CTASection onBooking={() => setBookingOpen(true)} />
-        <JournalSection />
-      </main>
+      <ScrollManager />
+      <Header scrolled={scrolled} hidden={headerHidden} onBooking={onBooking} />
+      <Routes>
+        <Route path="/" element={<HomePage onBooking={onBooking} />} />
+        <Route
+          path="/treatments/:slug"
+          element={<TreatmentDetailPage onBooking={onBooking} />}
+        />
+      </Routes>
       <Footer />
       <WhatsAppButton />
-      <MobileBookingBar onBooking={() => setBookingOpen(true)} />
+      <MobileBookingBar onBooking={onBooking} />
       <BookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} />
     </div>
+  );
+}
+
+// ─── Main App ─────────────────────────────────────────────────────────────────
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppShell />
+    </BrowserRouter>
   );
 }
