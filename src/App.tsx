@@ -662,7 +662,7 @@ function TreatmentsSection() {
         "Smile Makeover Planning",
         "Personalized Treatment Design",
       ],
-      img: IMG.clinic1,
+      img: new URL("./digital.png", import.meta.url).href,
       tag: "02",
     },
     {
@@ -674,7 +674,7 @@ function TreatmentsSection() {
         "Tooth Coloured Fillings",
         "Root Canal Treatment",
       ],
-      img: IMG.teeth1,
+      img: new URL("./generaldentistry.png", import.meta.url).href,
       tag: "03",
     },
     {
@@ -686,7 +686,7 @@ function TreatmentsSection() {
         "Full Mouth Implants",
         "Implant Supported Prostheses",
       ],
-      img: IMG.clinic2,
+      img: new URL("./implants.png", import.meta.url).href,
       tag: "04",
     },
     {
@@ -698,7 +698,7 @@ function TreatmentsSection() {
         "Smile Makeovers",
         "Minimal Preparation Dentistry",
       ],
-      img: IMG.teeth2,
+      img: new URL("./veneers.png", import.meta.url).href,
       tag: "05",
     },
     {
@@ -710,7 +710,7 @@ function TreatmentsSection() {
         "Impacted Teeth Treatment",
         "Jaw Corrective Surgery",
       ],
-      img: IMG.clinic3,
+      img: new URL("./oralmaxi.png", import.meta.url).href,
       tag: "06",
     },
     {
@@ -722,7 +722,7 @@ function TreatmentsSection() {
         "Worn Teeth Restoration",
         "Comprehensive Treatment Planning",
       ],
-      img: IMG.beauty,
+      img: new URL("./fullmouth.png", import.meta.url).href,
       tag: "07",
     },
   ];
@@ -930,217 +930,6 @@ function TreatmentCard({
         </div>
       </div>
     </div>
-  );
-}
-
-function SignatureTreatments() {
-  const treatments = [
-    {
-      num: "01",
-      title: "Smile Makeovers",
-      desc: "A comprehensive redesign of your smile, combining multiple cosmetic treatments for transformative results.",
-    },
-    {
-      num: "02",
-      title: "Dental Implants",
-      desc: "Permanent, natural-looking tooth replacements anchored into the jawbone for life-long stability.",
-    },
-    {
-      num: "03",
-      title: "Teeth Whitening",
-      desc: "Professional-grade whitening that brightens your smile by several shades in a single session.",
-    },
-    {
-      num: "04",
-      title: "Clear Aligners",
-      desc: "Virtually invisible orthodontic treatment to gradually perfect your smile at your own pace.",
-    },
-    {
-      num: "05",
-      title: "Porcelain Veneers",
-      desc: "Ultra-thin porcelain shells crafted to transform shape, colour and symmetry of your smile.",
-    },
-    {
-      num: "06",
-      title: "Root Canal Treatment",
-      desc: "Comfortable, effective treatment to save an infected tooth and relieve pain quickly.",
-    },
-    {
-      num: "07",
-      title: "Crowns & Bridges",
-      desc: "Custom-crafted restorations that restore strength and beauty to damaged or missing teeth.",
-    },
-    {
-      num: "08",
-      title: "Preventive Care",
-      desc: "Regular hygiene visits and screenings to keep your smile healthy and catch issues early.",
-    },
-  ];
-
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0);
-
-  const onScroll = () => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const max = el.scrollWidth - el.clientWidth;
-    setProgress(max > 0 ? el.scrollLeft / max : 0);
-  };
-
-  const ref = useReveal();
-
-  return (
-    <section
-      className="py-24 lg:py-36 overflow-hidden"
-      style={{ background: C.ivory }}
-    >
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-10">
-        <div ref={ref} className="reveal mb-12 flex items-end justify-between">
-          <div>
-            <div className="flex items-center gap-3 mb-5">
-              <div className="h-px w-8" style={{ background: C.terracotta }} />
-              <span
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 11,
-                  fontWeight: 600,
-                  letterSpacing: "0.2em",
-                  textTransform: "uppercase",
-                  color: C.terracotta,
-                }}
-              >
-                Signature Treatments
-              </span>
-            </div>
-            <h2
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(34px, 4vw, 56px)",
-                fontWeight: 400,
-                color: C.espresso,
-                letterSpacing: "-0.02em",
-                lineHeight: 1.1,
-              }}
-            >
-              Crafted for your unique smile
-            </h2>
-          </div>
-          <a
-            href="#contact"
-            className="hidden lg:flex items-center gap-2 text-sm font-semibold"
-            style={{
-              color: C.terracotta,
-              textDecoration: "none",
-              fontFamily: "var(--font-body)",
-            }}
-          >
-            All Treatments
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path
-                d="M3 8h10M9 4l4 4-4 4"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </a>
-        </div>
-      </div>
-
-      {/* Scrollable row */}
-      <div
-        ref={scrollRef}
-        className="flex gap-4 overflow-x-auto pl-6 lg:pl-[calc((100vw-1280px)/2+40px)] pr-6 pb-2 hide-scrollbar"
-        style={{ scrollSnapType: "x mandatory" }}
-        onScroll={onScroll}
-      >
-        {treatments.map((t) => (
-          <div
-            key={t.num}
-            className="flex-none w-72 lg:w-80 rounded-[20px] p-7 flex flex-col justify-between"
-            style={{
-              background: C.cream,
-              border: `1px solid ${C.border}`,
-              scrollSnapAlign: "start",
-              minHeight: 260,
-              cursor: "pointer",
-            }}
-          >
-            <div
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: 48,
-                fontWeight: 300,
-                color: C.border,
-                lineHeight: 1,
-              }}
-            >
-              {t.num}
-            </div>
-            <div>
-              <h3
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 24,
-                  fontWeight: 500,
-                  color: C.espresso,
-                  marginBottom: 10,
-                }}
-              >
-                {t.title}
-              </h3>
-              <p
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 13,
-                  color: C.warmGrey,
-                  lineHeight: 1.7,
-                }}
-              >
-                {t.desc}
-              </p>
-              <div
-                className="mt-5 flex items-center gap-1"
-                style={{
-                  color: C.terracotta,
-                  fontFamily: "var(--font-body)",
-                  fontSize: 12,
-                  fontWeight: 600,
-                }}
-              >
-                Learn more
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                  <path
-                    d="M3 8h10M9 4l4 4-4 4"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Progress bar */}
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-10 mt-8">
-        <div
-          className="h-px w-64 rounded-full overflow-hidden"
-          style={{ background: C.border }}
-        >
-          <div
-            className="h-full rounded-full transition-all duration-200"
-            style={{
-              width: `${Math.round(progress * 100)}%`,
-              background: C.terracotta,
-            }}
-          />
-        </div>
-      </div>
-    </section>
   );
 }
 
@@ -3578,7 +3367,6 @@ export default function App() {
         <Hero onBooking={() => setBookingOpen(true)} />
         <PhilosophySection />
         <TreatmentsSection />
-        <SignatureTreatments />
         <ClinicExperience />
         <DoctorSection />
         <TechnologySection />
