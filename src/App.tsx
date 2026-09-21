@@ -3242,12 +3242,95 @@ function BookingModal({
   );
 }
 
+// ─── Scroll-follow hook ────────────────────────────────────────────────────────
+// Gives fixed-position elements a visible lag/bounce so they feel like they are
+// physically tracking the user's scroll motion instead of sitting perfectly still.
+function useScrollFollow() {
+  const [offset, setOffset] = useState(0);
+  const lastY = useRef(0);
+
+  useEffect(() => {
+    lastY.current = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      const delta = y - lastY.current;
+      lastY.current = y;
+      setOffset((o) => Math.max(-22, Math.min(22, o + delta * 0.35)));
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    let frame: number;
+    const tick = () => {
+      setOffset((o) => (Math.abs(o) < 0.4 ? 0 : o * 0.88));
+      frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  return offset;
+}
+
+function ScrollToTopButton() {
+  const [visible, setVisible] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const followOffset = useScrollFollow();
+
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 400);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <button
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      aria-label="Scroll to top"
+      className="fixed right-6 z-[90] w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-[opacity,background] duration-300 bottom-[152px] lg:bottom-[92px]"
+      style={{
+        background: C.terracotta,
+        opacity: visible ? 1 : 0,
+        pointerEvents: visible ? "auto" : "none",
+        transform: `translateY(${(visible ? 0 : 12) + followOffset}px) scale(${hovered ? 1.1 : 1})`,
+        transition: "transform 0.15s ease-out, opacity 0.3s, background 0.3s",
+        border: "none",
+        cursor: "pointer",
+      }}
+    >
+      <svg width="20" height="20" viewBox="0 0 16 16" fill="none">
+        <path
+          d="M8 13V3M3.5 7.5L8 3l4.5 4.5"
+          stroke={C.white}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </button>
+  );
+}
+
 function WhatsAppButton() {
+  const [hovered, setHovered] = useState(false);
+  const followOffset = useScrollFollow();
+
   return (
     <a
       href="https://wa.me/919876543210"
-      className="fixed bottom-6 right-6 z-[90] w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-transform duration-300 hover:scale-110"
-      style={{ background: "#25d366" }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="fixed bottom-24 right-6 z-[90] w-14 h-14 rounded-full flex items-center justify-center shadow-lg lg:bottom-6"
+      style={{
+        background: "#25d366",
+        transform: `translateY(${followOffset}px) scale(${hovered ? 1.1 : 1})`,
+        transition: "transform 0.15s ease-out",
+      }}
       aria-label="WhatsApp"
     >
       <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
@@ -3374,7 +3457,9 @@ function TreatmentDetailPage({ onBooking }: { onBooking: () => void }) {
   const treatment = getTreatmentBySlug(slug);
 
   useSeo(
-    treatment ? `${treatment.metaTitle}` : "Treatment Not Found | Serene Dentistry",
+    treatment
+      ? `${treatment.metaTitle}`
+      : "Treatment Not Found | Serene Dentistry",
     treatment
       ? treatment.metaDescription
       : "The treatment you're looking for could not be found at Serene Dentistry.",
@@ -3792,6 +3877,7 @@ function AppShell() {
       </Routes>
       <Footer />
       <WhatsAppButton />
+      <ScrollToTopButton />
       <MobileBookingBar onBooking={onBooking} />
       <BookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} />
     </div>

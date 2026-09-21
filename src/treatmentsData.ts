@@ -71,7 +71,8 @@ export const TREATMENTS: TreatmentDetail[] = [
         "Healthier Teeth And Gums",
       ],
     },
-    ctaQuestion: "Want to know if Orthodontic Treatment is the right choice for you?",
+    ctaQuestion:
+      "Want to know if Orthodontic Treatment is the right choice for you?",
     ctaDesc:
       "Book a consultation with our experienced dentists. We'll examine your oral health, answer all your questions, and recommend the best treatment plan for your smile.",
     metaTitle: "Orthodontics Care | Braces & Clear Aligners | Serene Dentistry",
@@ -200,7 +201,8 @@ export const TREATMENTS: TreatmentDetail[] = [
     ctaQuestion: "Ready for a healthier, more confident smile?",
     ctaDesc:
       "Schedule a general dentistry checkup and let our team help you stay ahead of any oral health concerns.",
-    metaTitle: "General Dentistry | Preventive & Restorative Care | Serene Dentistry",
+    metaTitle:
+      "General Dentistry | Preventive & Restorative Care | Serene Dentistry",
     metaDescription:
       "Comprehensive general dentistry — checkups, cleanings, fillings, and root canal treatment focused on prevention and long-term oral health at Serene Dentistry.",
     keywords: [
@@ -263,7 +265,8 @@ export const TREATMENTS: TreatmentDetail[] = [
     ctaQuestion: "Wondering if dental implants are right for you?",
     ctaDesc:
       "Book a consultation to explore implant options tailored to your needs and get a personalized treatment plan.",
-    metaTitle: "Dental Implants | Permanent Tooth Replacement | Serene Dentistry",
+    metaTitle:
+      "Dental Implants | Permanent Tooth Replacement | Serene Dentistry",
     metaDescription:
       "Restore missing teeth with strong, natural-looking dental implants — single tooth, multiple teeth, and full mouth implant solutions at Serene Dentistry.",
     keywords: [
