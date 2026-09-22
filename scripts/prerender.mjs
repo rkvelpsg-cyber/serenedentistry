@@ -37,7 +37,8 @@ function getDistAssetUrlForLocalPath(localPath) {
 }
 
 function rewriteLocalAssetUrls(html) {
-  return html.replace(/file:\/\/\/([A-Za-z]:)?\/[^\s"'<>]+/g, (match) => {
+  // Matches both Windows (file:///C:/...) and POSIX (file:///opt/...) file URLs.
+  return html.replace(/file:\/\/\/([A-Za-z]:\/)?[^\s"'<>]+/g, (match) => {
     const decoded = decodeURIComponent(match);
     const localPath = decoded.replace(/^file:\/\//i, "");
     const resolved = getDistAssetUrlForLocalPath(localPath);
