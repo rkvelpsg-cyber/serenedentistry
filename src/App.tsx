@@ -2653,9 +2653,8 @@ function Footer() {
             </p>
             <div className="flex items-center gap-4 mt-6">
               {["instagram", "facebook", "youtube"].map((s) => (
-                <a
+                <span
                   key={s}
-                  href="#"
                   className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200"
                   style={{
                     background: "rgba(255,255,255,0.08)",
@@ -2672,7 +2671,7 @@ function Footer() {
                   <span style={{ fontSize: 12, color: C.white }}>
                     {s[0].toUpperCase()}
                   </span>
-                </a>
+                </span>
               ))}
             </div>
           </div>
@@ -2747,9 +2746,8 @@ function Footer() {
               "New Patient Info",
               "Privacy Policy",
             ].map((l) => (
-              <a
+              <span
                 key={l}
-                href="#"
                 style={{
                   display: "block",
                   fontFamily: "var(--font-body)",
@@ -2765,7 +2763,7 @@ function Footer() {
                 }
               >
                 {l}
-              </a>
+              </span>
             ))}
           </div>
 
@@ -2877,9 +2875,8 @@ function Footer() {
           </p>
           <div className="flex items-center gap-6">
             {["Privacy Policy", "Terms of Use"].map((l) => (
-              <a
+              <span
                 key={l}
-                href="#"
                 style={{
                   fontFamily: "var(--font-body)",
                   fontSize: 12,
@@ -2888,7 +2885,7 @@ function Footer() {
                 }}
               >
                 {l}
-              </a>
+              </span>
             ))}
           </div>
         </div>
@@ -4174,7 +4171,7 @@ function TreatmentDetailPage({ onBooking }: { onBooking: () => void }) {
   );
 }
 
-function AppShell() {
+export function AppShell() {
   const [scrolled, setScrolled] = useState(false);
   const [headerHidden, setHeaderHidden] = useState(false);
   const [bookingOpen, setBookingOpen] = useState(false);

@@ -144,13 +144,6 @@ function figmaSiteConfiguration(config: FigmaSiteConfiguration): Plugin {
         result = replaceHtmlCommentSlot(result, "figma:body-end", bodyEnd);
 
         const tags: HtmlTagDescriptor[] = [];
-        if (description) {
-          tags.push({
-            tag: "meta",
-            attrs: { name: "description", content: description },
-            injectTo: "head",
-          });
-        }
         if (config.robots?.index === false) {
           tags.push({
             tag: "meta",
@@ -165,40 +158,6 @@ function figmaSiteConfiguration(config: FigmaSiteConfiguration): Plugin {
             injectTo: "head",
           });
         }
-        if (title) {
-          tags.push({
-            tag: "meta",
-            attrs: { property: "og:title", content: title },
-            injectTo: "head",
-          });
-        }
-        if (description) {
-          tags.push({
-            tag: "meta",
-            attrs: { property: "og:description", content: description },
-            injectTo: "head",
-          });
-        }
-        if (socialImage) {
-          tags.push(
-            {
-              tag: "meta",
-              attrs: { property: "og:image", content: socialImage },
-              injectTo: "head",
-            },
-            {
-              tag: "meta",
-              attrs: { name: "twitter:card", content: "summary_large_image" },
-              injectTo: "head",
-            },
-            {
-              tag: "meta",
-              attrs: { name: "twitter:image", content: socialImage },
-              injectTo: "head",
-            },
-          );
-        }
-
         if (googleAnalyticsId) {
           tags.push(
             {
