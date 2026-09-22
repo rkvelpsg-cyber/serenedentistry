@@ -19,6 +19,32 @@ const escapeHtml = (value) =>
 
 const toAbsoluteUrl = (route) => `${serverModule.SITE_URL}${route}`;
 
+const distAssetManifest = fs.existsSync(path.join(dist, "assets"))
+  ? fs
+      .readdirSync(path.join(dist, "assets"), { withFileTypes: true })
+      .filter((entry) => entry.isFile())
+      .map((entry) => entry.name)
+  : [];
+
+function getDistAssetUrlForLocalPath(localPath) {
+  const fileName = path.basename(localPath);
+  const stem = fileName.replace(/\.[^.]+$/, "").toLowerCase();
+  const match = distAssetManifest.find((assetName) =>
+    assetName.toLowerCase().includes(stem),
+  );
+  if (!match) return null;
+  return `/assets/${match}`;
+}
+
+function rewriteLocalAssetUrls(html) {
+  return html.replace(/file:\/\/\/([A-Za-z]:)?\/[^\s"'<>]+/g, (match) => {
+    const decoded = decodeURIComponent(match);
+    const localPath = decoded.replace(/^file:\/\//i, "");
+    const resolved = getDistAssetUrlForLocalPath(localPath);
+    return resolved ?? match;
+  });
+}
+
 function createStructuredData(route, seo) {
   const dentist = {
     "@context": "https://schema.org",
@@ -80,13 +106,40 @@ function createStructuredData(route, seo) {
     .join("");
 }
 
+function clearDefaultSeoTags(html) {
+  const patterns = [
+    /<meta\s+name="description"[^>]*>\s*/gi,
+    /<meta\s+name="keywords"[^>]*>\s*/gi,
+    /<meta\s+name="robots"[^>]*>\s*/gi,
+    /<meta\s+name="theme-color"[^>]*>\s*/gi,
+    /<meta\s+property="og:type"[^>]*>\s*/gi,
+    /<meta\s+property="og:site_name"[^>]*>\s*/gi,
+    /<meta\s+property="og:title"[^>]*>\s*/gi,
+    /<meta\s+property="og:description"[^>]*>\s*/gi,
+    /<meta\s+property="og:url"[^>]*>\s*/gi,
+    /<meta\s+property="og:image"[^>]*>\s*/gi,
+    /<meta\s+property="og:locale"[^>]*>\s*/gi,
+    /<meta\s+name="twitter:card"[^>]*>\s*/gi,
+    /<meta\s+name="twitter:title"[^>]*>\s*/gi,
+    /<meta\s+name="twitter:description"[^>]*>\s*/gi,
+    /<meta\s+name="twitter:image"[^>]*>\s*/gi,
+    /<link\s+rel="canonical"[^>]*>\s*/gi,
+    /<title>.*?<\/title>\s*/is,
+  ];
+
+  return patterns.reduce(
+    (result, pattern) => result.replace(pattern, ""),
+    html,
+  );
+}
+
 function createDocument(route) {
   const seo = serverModule.getRouteSeo(route);
-  const renderedApp = serverModule.renderRoute(route);
+  const renderedApp = rewriteLocalAssetUrls(serverModule.renderRoute(route));
   const canonical = toAbsoluteUrl(route);
   const keywords = seo.keywords.join(", ");
   const structuredData = createStructuredData(route, seo);
-  const head = `
+  const injection = `
     <meta name="description" content="${escapeHtml(seo.description)}" />
     <meta name="keywords" content="${escapeHtml(keywords)}" />
     <meta name="robots" content="index, follow" />
@@ -106,9 +159,11 @@ function createDocument(route) {
     ${structuredData}
   `;
 
-  return template
-    .replace(/<head>[\s\S]*?<\/head>/i, `<head>${head}</head>`)
-    .replace('<div id="root"></div>', `<div id="root">${renderedApp}</div>`);
+  const withoutDefaultSeo = clearDefaultSeoTags(template);
+
+  return withoutDefaultSeo
+    .replace(/<\/head>/i, `${injection}\n</head>`)
+    .replace(/<div id="root"><\/div>/i, `<div id="root">${renderedApp}</div>`);
 }
 
 for (const route of serverModule.getRoutes()) {
@@ -116,7 +171,7 @@ for (const route of serverModule.getRoutes()) {
   fs.mkdirSync(outputDirectory, { recursive: true });
   fs.writeFileSync(
     path.join(outputDirectory, "index.html"),
-    `<!doctype html>\n${createDocument(route)}`,
+    createDocument(route),
   );
 }
 
