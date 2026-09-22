@@ -19,13 +19,19 @@ export interface TreatmentDetail {
   metaTitle: string;
   metaDescription: string;
   keywords: string[];
+  seoSections?: {
+    heading: string;
+    paragraphs?: string[];
+    items?: string[];
+  }[];
+  faqs?: { question: string; answer: string }[];
 }
 
 export const TREATMENTS: TreatmentDetail[] = [
   {
     slug: "orthodontics-care",
     tag: "01",
-    title: "Orthodontics Care",
+    title: "Orthodontics Care in Whitefield",
     subtitle: "Aligners & Braces",
     img: new URL("./orthodonticsscare.png", import.meta.url).href,
     desc: "Personalized orthodontic care designed to improve alignment, function, and facial harmony through modern treatment solutions tailored to every smile.",
@@ -75,7 +81,8 @@ export const TREATMENTS: TreatmentDetail[] = [
       "Want to know if Orthodontic Treatment is the right choice for you?",
     ctaDesc:
       "Book a consultation with our experienced dentists. We'll examine your oral health, answer all your questions, and recommend the best treatment plan for your smile.",
-    metaTitle: "Orthodontics Care | Braces & Clear Aligners | Serene Dentistry",
+    metaTitle:
+      "Orthodontist in Whitefield | Braces & Clear Aligners | Serene Dentistry",
     metaDescription:
       "Straighten your smile with expert orthodontic care — ceramic & metal braces, clear aligners, bite correction, and personalized treatment planning at Serene Dentistry.",
     keywords: [
@@ -85,7 +92,10 @@ export const TREATMENTS: TreatmentDetail[] = [
       "invisalign",
       "bite correction",
       "teeth straightening",
-      "orthodontist near me",
+      "orthodontist in Whitefield",
+      "braces treatment in Whitefield",
+      "clear aligners in Whitefield",
+      "teeth alignment treatment Whitefield",
     ],
   },
   {
@@ -217,7 +227,7 @@ export const TREATMENTS: TreatmentDetail[] = [
   {
     slug: "dental-implants",
     tag: "04",
-    title: "Dental Implants",
+    title: "Dental Implants in Whitefield",
     img: new URL("./implants.png", import.meta.url).href,
     desc: "Restore missing teeth with implant solutions designed for strength, stability, and long-term success. Every treatment is planned for seamless, natural-looking results.",
     features: [
@@ -265,12 +275,15 @@ export const TREATMENTS: TreatmentDetail[] = [
     ctaQuestion: "Wondering if dental implants are right for you?",
     ctaDesc:
       "Book a consultation to explore implant options tailored to your needs and get a personalized treatment plan.",
-    metaTitle:
-      "Dental Implants | Permanent Tooth Replacement | Serene Dentistry",
+    metaTitle: "Dental Implants in Whitefield, Bangalore | Serene Dentistry",
     metaDescription:
       "Restore missing teeth with strong, natural-looking dental implants — single tooth, multiple teeth, and full mouth implant solutions at Serene Dentistry.",
     keywords: [
-      "dental implants",
+      "dental implants in Whitefield",
+      "dental implant clinic Whitefield",
+      "tooth implant Whitefield",
+      "missing tooth replacement Whitefield",
+      "full mouth dental implants Whitefield",
       "tooth replacement",
       "full mouth implants",
       "implant supported dentures",
@@ -464,6 +477,524 @@ export const TREATMENTS: TreatmentDetail[] = [
       "bite rehabilitation",
       "smile restoration",
       "worn teeth treatment",
+    ],
+  },
+  {
+    slug: "root-canal-treatment-whitefield",
+    tag: "08",
+    title: "Root Canal Treatment in Whitefield, Bangalore",
+    subtitle: "Tooth Pain Treatment & Restorative Care",
+    img: new URL("./generaldentistry.png", import.meta.url).href,
+    desc: "Root canal treatment can help preserve a tooth affected by infection or inflammation. Your dentist will assess the tooth and explain the most suitable treatment options for your needs.",
+    features: [
+      "Tooth Pain Evaluation",
+      "Root Canal Treatment Planning",
+      "Tooth Restoration After RCT",
+      "Follow-up Care Guidance",
+    ],
+    heroParagraphs: [
+      "Root canal treatment removes diseased tissue from inside a tooth so it can be cleaned, sealed, and restored where clinically appropriate. At Serene Dentistry, each case begins with an examination and appropriate imaging.",
+      "If you have ongoing tooth pain or sensitivity, a timely dental assessment can help identify the cause and prevent the problem from progressing. Treatment recommendations depend on the condition of the tooth and your overall oral health.",
+    ],
+    checklist: [
+      "Tooth Pain – Assessment",
+      "Infection – Treatment",
+      "Tooth Structure – Preservation",
+      "Restoration – Protection",
+    ],
+    whatWeProvide: {
+      heading:
+        "Careful assessment and root canal treatment planning for teeth that may be infected or inflamed.",
+      desc: "Your dentist will discuss the findings, treatment choices, and restoration needed after the root canal procedure.",
+      items: [
+        "Dental Examination",
+        "Digital Imaging When Needed",
+        "Root Canal Treatment",
+        "Tooth-Coloured Restoration",
+        "Assessment Of Cracked Or Damaged Teeth",
+        "Aftercare Guidance",
+      ],
+    },
+    expectedResult: {
+      desc: "The aim is to address the source of the problem and preserve the natural tooth when possible. Healing and long-term maintenance vary between patients.",
+      items: [
+        "A Clearer Diagnosis",
+        "Removal Of Infected Tissue",
+        "Preservation Of Natural Tooth",
+        "Restored Chewing Function",
+        "Personalised Follow-up Plan",
+      ],
+    },
+    ctaQuestion: "Have tooth pain or sensitivity that needs attention?",
+    ctaDesc:
+      "Book an assessment with our dental team to understand the cause and discuss suitable treatment options.",
+    metaTitle: "Root Canal Treatment in Whitefield | Serene Dentistry",
+    metaDescription:
+      "Explore root canal treatment in Whitefield at Serene Dentistry. Get a careful assessment for tooth pain, infection, and restorative care tailored to your needs.",
+    keywords: [
+      "root canal treatment in Whitefield",
+      "root canal dentist Whitefield",
+      "RCT treatment Whitefield",
+      "tooth pain treatment Whitefield",
+      "root canal specialist Whitefield",
+    ],
+    seoSections: [
+      {
+        heading: "What is root canal treatment?",
+        paragraphs: [
+          "Root canal treatment is a procedure used to clean infected or inflamed tissue from inside a tooth. The space is then cleaned, sealed, and restored so the tooth can continue to function when it is suitable to preserve.",
+        ],
+      },
+      {
+        heading: "When might it be recommended?",
+        paragraphs: [
+          "Your dentist may discuss root canal treatment when decay, a crack, trauma, or repeated dental work has affected the pulp inside a tooth. An examination and imaging help determine the diagnosis.",
+        ],
+      },
+      {
+        heading: "Common symptoms",
+        items: [
+          "Persistent toothache",
+          "Sensitivity to hot or cold",
+          "Pain when biting",
+          "Swelling or tenderness around a tooth",
+          "A darkened or damaged tooth",
+        ],
+      },
+      {
+        heading: "The treatment process",
+        paragraphs: [
+          "The appointment usually includes examination, local anaesthesia, access to the tooth, cleaning of the canals, sealing, and a planned restoration. The number of visits depends on the tooth and individual clinical needs.",
+        ],
+      },
+      {
+        heading: "Recovery and aftercare",
+        paragraphs: [
+          "Follow the instructions given by your dentist, avoid chewing hard foods on a recently treated tooth until it has been restored as advised, and contact the clinic if symptoms worsen or do not settle.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Is root canal treatment suitable for every painful tooth?",
+        answer:
+          "No. Tooth pain can have several causes. Your dentist will examine the tooth and recommend treatment based on the diagnosis.",
+      },
+      {
+        question: "How long does root canal treatment take?",
+        answer:
+          "Timing varies with the tooth, infection, and restoration required. Your dentist can explain the expected appointments after assessment.",
+      },
+      {
+        question: "What happens after the root canal?",
+        answer:
+          "The tooth usually needs a suitable restoration and follow-up care. Your dentist will advise when and how to protect it.",
+      },
+    ],
+  },
+  {
+    slug: "clear-aligners-whitefield",
+    tag: "09",
+    title: "Clear Aligners in Whitefield",
+    subtitle: "Transparent Teeth Alignment",
+    img: new URL("./orthodonticsscare.png", import.meta.url).href,
+    desc: "Clear aligner treatment uses a series of removable transparent trays to guide selected teeth into a planned position. Suitability depends on your bite, alignment, and treatment goals.",
+    features: [
+      "Digital Alignment Assessment",
+      "Removable Clear Trays",
+      "Progress Reviews",
+      "Retainer Planning",
+    ],
+    heroParagraphs: [
+      "Clear aligners may be suitable for some spacing, crowding, and alignment concerns. A dentist or orthodontic provider will assess your teeth and bite before recommending a plan.",
+      "Treatment is planned in stages, with each aligner worn as instructed and reviewed at appropriate intervals. Traditional braces may be more suitable for some cases.",
+    ],
+    checklist: [
+      "Alignment – Planning",
+      "Bite – Assessment",
+      "Trays – Guidance",
+      "Retention – Maintenance",
+    ],
+    whatWeProvide: {
+      heading:
+        "Thoughtful clear aligner planning for selected teeth alignment concerns.",
+      desc: "The consultation focuses on your oral health, bite, goals, and the options available for your particular case.",
+      items: [
+        "Initial Consultation",
+        "Digital Treatment Planning",
+        "Clear Aligner Review Visits",
+        "Oral Hygiene Guidance",
+        "Retainer Planning",
+      ],
+    },
+    expectedResult: {
+      desc: "The aim is to improve alignment in a way that fits your clinical needs. Movement, duration, and retention vary between patients.",
+      items: [
+        "A Personalised Plan",
+        "Improved Tooth Alignment",
+        "Guided Progress Reviews",
+        "Better Understanding Of Options",
+        "Retention Advice",
+      ],
+    },
+    ctaQuestion: "Considering clear aligners for your smile?",
+    ctaDesc:
+      "Book a consultation to discuss whether clear aligners or another orthodontic option may suit your teeth and bite.",
+    metaTitle: "Clear Aligners in Whitefield, Bangalore | Serene Dentistry",
+    metaDescription:
+      "Explore clear aligners in Whitefield, Bangalore at Serene Dentistry. Discuss transparent aligners, teeth alignment, treatment planning, and retainers.",
+    keywords: [
+      "clear aligners Whitefield",
+      "invisible braces Whitefield",
+      "transparent aligners Whitefield",
+      "teeth alignment Whitefield",
+      "clear aligners Whitefield Bangalore",
+    ],
+    seoSections: [
+      {
+        heading: "What are clear aligners?",
+        paragraphs: [
+          "Clear aligners are removable, transparent trays made to guide teeth through a planned series of positions. They are designed for selected cases after an assessment of your teeth and bite.",
+        ],
+      },
+      {
+        heading: "Who may be suitable?",
+        paragraphs: [
+          "Suitability depends on factors such as crowding, spacing, bite, gum health, and treatment goals. Some cases may be better managed with traditional braces or another approach.",
+        ],
+      },
+      {
+        heading: "Treatment process",
+        items: [
+          "Consultation and clinical assessment",
+          "Digital planning where appropriate",
+          "A series of prescribed aligners",
+          "Progress reviews and adjustments",
+          "Retainers after active treatment",
+        ],
+      },
+      {
+        heading: "Care instructions",
+        paragraphs: [
+          "Wear aligners as instructed, remove them for eating unless advised otherwise, clean them regularly, and maintain your usual brushing and dental checkups.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Are clear aligners better than braces?",
+        answer:
+          "Neither option is universally better. The appropriate choice depends on your alignment, bite, oral health, and treatment goals.",
+      },
+      {
+        question: "How long does clear aligner treatment take?",
+        answer:
+          "Duration varies with the complexity of movement and how consistently the aligners are worn. Your provider will estimate timing after assessment.",
+      },
+      {
+        question: "Will I need retainers?",
+        answer:
+          "Retention is commonly discussed after teeth alignment because teeth can move over time. Your dentist will recommend a suitable plan.",
+      },
+    ],
+  },
+  {
+    slug: "pediatric-dentist-whitefield",
+    tag: "10",
+    title: "Pediatric Dental Care in Whitefield",
+    subtitle: "Gentle Care for Growing Smiles",
+    img: new URL("./hall.jpg", import.meta.url).href,
+    desc: "Supportive dental care for children, with age-appropriate checkups, prevention, hygiene guidance, and treatment discussions for growing smiles.",
+    features: [
+      "Children's Checkups",
+      "Cavity Prevention",
+      "Hygiene Guidance",
+      "Child-Friendly Visits",
+    ],
+    heroParagraphs: [
+      "Regular dental visits help children become familiar with the clinic and allow developing teeth to be monitored. Appointments are adapted to the child’s age, comfort, and needs.",
+      "Our team can discuss brushing, diet, fluoride where clinically appropriate, cavities, and ways families can support healthy dental habits at home.",
+    ],
+    checklist: [
+      "Checkups – Prevention",
+      "Cavities – Early Care",
+      "Hygiene – Guidance",
+      "Visits – Confidence",
+    ],
+    whatWeProvide: {
+      heading:
+        "Practical preventive and restorative dental support for children and their families.",
+      desc: "We take time to explain findings in an age-appropriate way and help parents understand the next steps.",
+      items: [
+        "Dental Checkups",
+        "Cavity Assessment",
+        "Preventive Advice",
+        "Fluoride Discussion Where Appropriate",
+        "Hygiene And Diet Guidance",
+        "Referral When Needed",
+      ],
+    },
+    expectedResult: {
+      desc: "The goal is to build positive dental routines, identify concerns early, and support healthy development with care suited to each child.",
+      items: [
+        "Comfortable Familiar Visits",
+        "Early Concern Detection",
+        "Better Brushing Habits",
+        "Family Guidance",
+        "Age-Appropriate Care",
+      ],
+    },
+    ctaQuestion: "Looking for a pediatric dentist in Whitefield?",
+    ctaDesc:
+      "Book a child-friendly dental appointment to discuss checkups, prevention, tooth pain, or any concern about your child’s teeth.",
+    metaTitle: "Pediatric Dentist in Whitefield | Kids Dental Care",
+    metaDescription:
+      "Serene Dentistry offers pediatric dental care in Whitefield, including children's checkups, cavity prevention, hygiene guidance, and family-focused appointments.",
+    keywords: [
+      "pediatric dentist Whitefield",
+      "kids dentist Whitefield",
+      "child dentist Whitefield",
+      "children dental clinic Whitefield",
+      "kids dental care Whitefield",
+    ],
+    seoSections: [
+      {
+        heading: "Children's dental checkups",
+        paragraphs: [
+          "Checkups allow the dentist to monitor primary and permanent teeth, discuss habits, and identify concerns before they become more difficult to manage.",
+        ],
+      },
+      {
+        heading: "Preventive care and hygiene",
+        paragraphs: [
+          "Children benefit from help with brushing technique, fluoride toothpaste, diet, and regular dental visits. Fluoride recommendations depend on age, risk, and clinical assessment.",
+        ],
+      },
+      {
+        heading: "When should a child visit a dentist?",
+        paragraphs: [
+          "A child should be seen if there is tooth pain, swelling, injury, sensitivity, visible decay, or difficulty eating. Routine visits are also useful even when no problem is obvious.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "How often should children have dental checkups?",
+        answer:
+          "The appropriate interval depends on age, oral health, and risk of cavities. The dentist will recommend a schedule for your child.",
+      },
+      {
+        question: "Should children receive fluoride?",
+        answer:
+          "Fluoride may be recommended when clinically appropriate. Your dentist will consider the child’s age, exposure, and cavity risk.",
+      },
+      {
+        question: "What if my child is nervous?",
+        answer:
+          "Tell the team about the concern before the visit. A gradual, age-appropriate approach can help children become more comfortable with dental care.",
+      },
+    ],
+  },
+  {
+    slug: "wisdom-tooth-extraction-whitefield",
+    tag: "11",
+    title: "Wisdom Tooth Extraction in Whitefield",
+    subtitle: "Evaluation & Surgical Dental Care",
+    img: new URL("./oralmaxi.png", import.meta.url).href,
+    desc: "Wisdom teeth are assessed individually. When a tooth is impacted, painful, infected, or affecting nearby structures, your dentist can explain monitoring, treatment, or removal options.",
+    features: [
+      "Wisdom Tooth Assessment",
+      "Impaction Evaluation",
+      "Surgical Extraction Planning",
+      "Recovery Guidance",
+    ],
+    heroParagraphs: [
+      "Wisdom teeth can develop normally, remain partly erupted, or become impacted. An examination and appropriate imaging help determine their position and whether treatment is needed.",
+      "Not every wisdom tooth requires removal. Recommendations depend on symptoms, cleaning access, infection, damage, and the tooth’s relationship with surrounding structures.",
+    ],
+    checklist: [
+      "Wisdom Teeth – Review",
+      "Impaction – Imaging",
+      "Removal – Planning",
+      "Recovery – Guidance",
+    ],
+    whatWeProvide: {
+      heading:
+        "Careful wisdom tooth evaluation and extraction planning based on your symptoms and dental imaging.",
+      desc: "Your dentist will explain the findings, alternatives, expected recovery, and when referral may be appropriate.",
+      items: [
+        "Clinical Examination",
+        "Dental Imaging",
+        "Impacted Tooth Assessment",
+        "Extraction Planning",
+        "Post-Procedure Instructions",
+        "Referral When Clinically Needed",
+      ],
+    },
+    expectedResult: {
+      desc: "The intended outcome depends on the reason for treatment and the individual procedure. Your dentist will discuss risks, recovery, and follow-up care before proceeding.",
+      items: [
+        "Clearer Diagnosis",
+        "A Personalised Recommendation",
+        "Planned Procedure",
+        "Recovery Instructions",
+        "Follow-up Support",
+      ],
+    },
+    ctaQuestion: "Does a wisdom tooth need evaluation?",
+    ctaDesc:
+      "Book an appointment to discuss pain, swelling, impaction, or any concern about a wisdom tooth.",
+    metaTitle: "Wisdom Tooth Extraction in Whitefield | Serene Dentistry",
+    metaDescription:
+      "Get a careful assessment for wisdom tooth extraction in Whitefield. Serene Dentistry discusses impacted wisdom teeth, removal options, and aftercare.",
+    keywords: [
+      "wisdom tooth extraction Whitefield",
+      "wisdom tooth removal Whitefield",
+      "impacted wisdom tooth Whitefield",
+      "tooth extraction Whitefield",
+      "wisdom tooth dentist Whitefield",
+    ],
+    seoSections: [
+      {
+        heading: "What are wisdom teeth?",
+        paragraphs: [
+          "Wisdom teeth are the final molars to develop, usually in the late teens or early adulthood. Their position and available space can vary considerably between people.",
+        ],
+      },
+      {
+        heading: "Common problems and symptoms",
+        items: [
+          "Pain or tenderness at the back of the mouth",
+          "Swelling or difficulty opening the mouth",
+          "Food trapping or gum inflammation",
+          "Damage or decay affecting a nearby tooth",
+          "Repeated infection around a partly erupted tooth",
+        ],
+      },
+      {
+        heading: "Evaluation and extraction process",
+        paragraphs: [
+          "The dentist will examine the area and may recommend imaging to understand the tooth’s position. If removal is advised, the procedure and anaesthesia options will be explained before treatment.",
+        ],
+      },
+      {
+        heading: "Recovery and aftercare",
+        paragraphs: [
+          "Follow the written instructions provided after extraction, protect the area while it heals, and contact the clinic if you have concerns about bleeding, swelling, pain, or healing.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Does every wisdom tooth need to be removed?",
+        answer:
+          "No. Some wisdom teeth can be monitored if they are healthy, functional, and easy to keep clean. The recommendation depends on the individual examination.",
+      },
+      {
+        question: "What is an impacted wisdom tooth?",
+        answer:
+          "An impacted wisdom tooth is blocked from erupting normally by gum, bone, or another tooth. Imaging helps assess its position.",
+      },
+      {
+        question: "How long is recovery?",
+        answer:
+          "Recovery varies with the tooth and procedure. Your dentist will provide individual aftercare instructions and explain what to expect.",
+      },
+    ],
+  },
+  {
+    slug: "teeth-whitening-whitefield",
+    tag: "12",
+    title: "Professional Teeth Whitening in Whitefield",
+    subtitle: "A Brighter, Healthier-Looking Smile",
+    img: new URL("./veneers.png", import.meta.url).href,
+    desc: "Professional teeth whitening begins with an assessment of your teeth, gums, and the cause of discoloration. Treatment and expected changes vary between patients.",
+    features: [
+      "Discoloration Assessment",
+      "Professional Whitening Options",
+      "Sensitivity Guidance",
+      "Aftercare Advice",
+    ],
+    heroParagraphs: [
+      "Teeth can darken or stain because of food and drinks, tobacco, age-related changes, medication, or changes within the tooth. A dental assessment helps determine whether whitening is suitable.",
+      "Professional whitening is planned around your oral health and goals. Existing fillings, crowns, and veneers may not change colour in the same way as natural teeth.",
+    ],
+    checklist: [
+      "Stains – Assessment",
+      "Suitability – Review",
+      "Whitening – Planning",
+      "Aftercare – Guidance",
+    ],
+    whatWeProvide: {
+      heading:
+        "A considered whitening consultation focused on suitability, oral health, and realistic expectations.",
+      desc: "Your dentist will discuss the available approach, possible sensitivity, and how existing dental work may respond.",
+      items: [
+        "Shade And Stain Assessment",
+        "Gum And Tooth Check",
+        "Professional Whitening Planning",
+        "Sensitivity Advice",
+        "Aftercare Recommendations",
+      ],
+    },
+    expectedResult: {
+      desc: "Whitening can lighten some types of natural tooth discoloration, but the degree and duration of change vary with the cause of staining and daily habits.",
+      items: [
+        "A Personalised Assessment",
+        "Clearer Treatment Expectations",
+        "Professional Guidance",
+        "Aftercare Plan",
+        "Advice On Future Staining",
+      ],
+    },
+    ctaQuestion: "Interested in professional teeth whitening?",
+    ctaDesc:
+      "Book a consultation to discuss the cause of discoloration and whether professional whitening may suit your smile.",
+    metaTitle: "Teeth Whitening in Whitefield, Bangalore | Serene Dentistry",
+    metaDescription:
+      "Explore professional teeth whitening in Whitefield, Bangalore at Serene Dentistry. Discuss suitability, discoloration, sensitivity, and aftercare.",
+    keywords: [
+      "teeth whitening Whitefield",
+      "professional teeth whitening Whitefield",
+      "teeth whitening dentist Whitefield",
+      "smile whitening Whitefield",
+    ],
+    seoSections: [
+      {
+        heading: "What causes tooth discoloration?",
+        paragraphs: [
+          "Discoloration may be linked to food and drink, tobacco, ageing, medication, trauma, or changes inside a tooth. Identifying the cause helps set appropriate expectations.",
+        ],
+      },
+      {
+        heading: "Professional whitening and suitability",
+        paragraphs: [
+          "Whitening is generally considered only after the dentist checks for active decay, gum concerns, sensitivity, and restorations. The most suitable approach depends on your examination.",
+        ],
+      },
+      {
+        heading: "Treatment and aftercare",
+        paragraphs: [
+          "Your dentist will explain the planned whitening process and how to manage temporary sensitivity if it occurs. Limiting strongly staining foods and drinks may help maintain the change, though results vary.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Will whitening change crowns or veneers?",
+        answer:
+          "Whitening changes natural tooth structure differently from many restorations. Your dentist can explain how existing dental work may affect the overall shade.",
+      },
+      {
+        question: "How long do whitening results last?",
+        answer:
+          "Results vary with the original cause of discoloration, diet, tobacco use, oral hygiene, and natural changes over time.",
+      },
+      {
+        question: "Can everyone have teeth whitening?",
+        answer:
+          "Not everyone is an immediate candidate. A dental assessment is needed to check oral health and whether whitening is appropriate.",
+      },
     ],
   },
 ];

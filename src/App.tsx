@@ -351,7 +351,7 @@ function Header({
               className="block text-center mt-4 text-sm"
               style={{ color: C.warmGrey, textDecoration: "none" }}
             >
-              +91-8971919743
+              +91 89719 19743
             </a>
           </div>
         </div>
@@ -405,6 +405,19 @@ function Hero({ onBooking }: { onBooking: () => void }) {
           <h1
             style={{
               fontFamily: "var(--font-display)",
+              fontSize: "clamp(18px, 2vw, 25px)",
+              fontWeight: 400,
+              color: C.white,
+              lineHeight: 1.2,
+              letterSpacing: "0.02em",
+              marginBottom: 12,
+            }}
+          >
+            Dental Clinic in Whitefield, Bangalore
+          </h1>
+          <div
+            style={{
+              fontFamily: "var(--font-display)",
               fontSize: "clamp(48px, 7vw, 96px)",
               fontWeight: 400,
               color: C.white,
@@ -418,7 +431,7 @@ function Hero({ onBooking }: { onBooking: () => void }) {
             <em style={{ fontStyle: "italic", color: C.rose }}>
               designed around you.
             </em>
-          </h1>
+          </div>
           <p
             style={{
               fontFamily: "var(--font-body)",
@@ -628,6 +641,62 @@ function PhilosophySection() {
               />
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function LocalSeoSection() {
+  const ref = useReveal();
+  return (
+    <section className="py-16 lg:py-24" style={{ background: C.ivory }}>
+      <div className="max-w-[980px] mx-auto px-6 lg:px-10">
+        <div ref={ref} className="reveal text-center">
+          <div className="flex items-center justify-center gap-3 mb-5">
+            <div className="h-px w-8" style={{ background: C.terracotta }} />
+            <span
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color: C.terracotta,
+              }}
+            >
+              Dental Care in Whitefield
+            </span>
+            <div className="h-px w-8" style={{ background: C.terracotta }} />
+          </div>
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(34px, 4vw, 52px)",
+              fontWeight: 400,
+              color: C.espresso,
+              lineHeight: 1.1,
+              marginBottom: 18,
+            }}
+          >
+            Comprehensive Dental Care in Whitefield
+          </h2>
+          <p
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: 16,
+              color: C.warmGrey,
+              lineHeight: 1.85,
+              maxWidth: 760,
+              margin: "0 auto",
+            }}
+          >
+            Serene Dentistry is a modern dental clinic in Whitefield, Bengaluru,
+            providing comprehensive dental care for individuals and families.
+            Services include preventive dentistry, root canal treatment, dental
+            implants, orthodontic care, clear aligners, cosmetic dentistry,
+            children&apos;s dental care, and advanced smile rehabilitation.
+          </p>
         </div>
       </div>
     </section>
@@ -2306,7 +2375,7 @@ function CTASection({ onBooking }: { onBooking: () => void }) {
                 Book an Appointment
               </button>
               <a
-                href="tel:+919876543210"
+                href="tel:+918971919743"
                 className="px-8 py-4 rounded-full font-semibold flex items-center gap-2 transition-all duration-300"
                 style={{
                   background: "transparent",
@@ -2361,7 +2430,7 @@ function CTASection({ onBooking }: { onBooking: () => void }) {
                 letterSpacing: "0.05em",
               }}
             >
-              Dental emergency? Call us immediately: +91-8971919743
+              Dental emergency? Call us immediately: +91 89719 19743
             </p>
           </div>
         </div>
@@ -2724,9 +2793,9 @@ function Footer() {
                 marginBottom: 12,
               }}
             >
-              Arka shine 1st Floor-#196
+              Arka Shine, 1st Floor, #196
               <br />
-              3rd cross, ECC Rd, Prithvi Layout,
+              3rd Cross, ECC Road, Prithvi Layout,
               <br />
               Bengaluru, Karnataka 560066
             </div>
@@ -2741,7 +2810,7 @@ function Footer() {
                 marginBottom: 6,
               }}
             >
-              +91-8971919743
+              +91 89719 19743
             </a>
             <a
               href="mailto:serenedentistrywhitefield@gmail.com"
@@ -3354,7 +3423,7 @@ function MobileBookingBar({ onBooking }: { onBooking: () => void }) {
     >
       <div className="flex gap-3">
         <a
-          href="tel:+919876543210"
+          href="tel:+918971919743"
           className="flex-none w-12 h-12 rounded-full flex items-center justify-center"
           style={{ background: C.cream, border: `1px solid ${C.border}` }}
         >
@@ -3429,17 +3498,11 @@ function useSeo(
       "og:url",
       `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`,
     );
-    setMetaProperty(
-      "og:image",
-      "https://images.unsplash.com/photo-1588776814546-da5a1d0f0f57?auto=format&fit=crop&w=1200&q=80",
-    );
+    setMetaProperty("og:image", `${SITE_URL}/og-image.jpg`);
     setMeta("twitter:card", "summary_large_image");
     setMeta("twitter:title", title);
     setMeta("twitter:description", description);
-    setMeta(
-      "twitter:image",
-      "https://images.unsplash.com/photo-1588776814546-da5a1d0f0f57?auto=format&fit=crop&w=1200&q=80",
-    );
+    setMeta("twitter:image", `${SITE_URL}/og-image.jpg`);
     if (keywords && keywords.length) setMeta("keywords", keywords.join(", "));
 
     const canonicalUrl = `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
@@ -3460,22 +3523,20 @@ function useLocalBusinessSchema() {
       "@context": "https://schema.org",
       "@type": "Dentist",
       name: "Serene Dentistry",
-      image:
-        "https://images.unsplash.com/photo-1588776814546-da5a1d0f0f57?auto=format&fit=crop&w=1200&q=80",
-      url: SITE_URL,
-      telephone: "+91-8971919743",
+      image: `${SITE_URL}/og-image.jpg`,
+      url: `${SITE_URL}/`,
+      telephone: "+91 89719 19743",
       email: "serenedentistrywhitefield@gmail.com",
       address: {
         "@type": "PostalAddress",
-        streetAddress: "Whitefield, Bengaluru",
-        addressLocality: "Whitefield",
+        streetAddress:
+          "Arka Shine, 1st Floor, #196, 3rd Cross, ECC Road, Prithvi Layout",
+        addressLocality: "Bengaluru",
         addressRegion: "Karnataka",
         postalCode: "560066",
         addressCountry: "IN",
       },
       areaServed: ["Whitefield", "Bengaluru", "Karnataka"],
-      openingHours: ["Mo-Fr 09:00-20:00", "Sa 09:00-18:00"],
-      priceRange: "$$",
       medicalSpecialty: [
         "Orthodontics",
         "Cosmetic Dentistry",
@@ -3496,6 +3557,40 @@ function useLocalBusinessSchema() {
   }, []);
 }
 
+function useBreadcrumbSchema(slug: string | undefined, title: string) {
+  useEffect(() => {
+    if (!slug) return;
+    const scriptId = "breadcrumb-schema";
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: `${SITE_URL}/`,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: title,
+          item: `${SITE_URL}/treatments/${slug}`,
+        },
+      ],
+    };
+    let script = document.getElementById(scriptId);
+    if (!script) {
+      script = document.createElement("script");
+      script.id = scriptId;
+      script.setAttribute("type", "application/ld+json");
+      document.head.appendChild(script);
+    }
+    script.textContent = JSON.stringify(schema);
+    return () => script?.remove();
+  }, [slug, title]);
+}
+
 // ─── Scroll management on route change ─────────────────────────────────────────
 function ScrollManager() {
   const location = useLocation();
@@ -3514,8 +3609,8 @@ function ScrollManager() {
 
 function HomePage({ onBooking }: { onBooking: () => void }) {
   useSeo(
-    "Serene Dentistry | Personalised Dental Care & Smile Design",
-    "Serene Dentistry offers orthodontics, digital smile design, general dentistry, dental implants, veneers, oral surgery and full mouth rehabilitation with unhurried, personalised care.",
+    "Dental Clinic in Whitefield, Bangalore | Serene Dentistry",
+    "Serene Dentistry is a modern dental clinic in Whitefield, Bangalore offering root canal treatment, implants, braces, clear aligners, cosmetic and family dentistry. Book an appointment today.",
     [
       "dentist",
       "dental clinic",
@@ -3530,6 +3625,7 @@ function HomePage({ onBooking }: { onBooking: () => void }) {
     <main>
       <Hero onBooking={onBooking} />
       <PhilosophySection />
+      <LocalSeoSection />
       <TreatmentsSection />
       <ClinicExperience />
       <DoctorSection />
@@ -3548,6 +3644,8 @@ function HomePage({ onBooking }: { onBooking: () => void }) {
 function TreatmentDetailPage({ onBooking }: { onBooking: () => void }) {
   const { slug } = useParams();
   const treatment = getTreatmentBySlug(slug);
+
+  useBreadcrumbSchema(slug, treatment?.title ?? "Dental Treatment");
 
   useSeo(
     treatment
@@ -3841,6 +3939,149 @@ function TreatmentDetailPage({ onBooking }: { onBooking: () => void }) {
           </div>
         </div>
       </section>
+
+      {treatment.seoSections && treatment.seoSections.length > 0 && (
+        <section className="pb-24 lg:pb-32">
+          <div className="max-w-[980px] mx-auto px-6 lg:px-10">
+            <div className="border-t pt-16" style={{ borderColor: C.border }}>
+              {treatment.seoSections.map((section) => (
+                <article key={section.heading} className="mb-12 last:mb-0">
+                  <h2
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: "clamp(28px, 3vw, 42px)",
+                      fontWeight: 400,
+                      color: C.espresso,
+                      lineHeight: 1.15,
+                      marginBottom: 14,
+                    }}
+                  >
+                    {section.heading}
+                  </h2>
+                  {section.paragraphs?.map((paragraph) => (
+                    <p
+                      key={paragraph}
+                      style={{
+                        fontFamily: "var(--font-body)",
+                        fontSize: 15,
+                        color: C.warmGrey,
+                        lineHeight: 1.8,
+                        marginBottom: 12,
+                      }}
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
+                  {section.items && (
+                    <ul className="grid gap-3 sm:grid-cols-2">
+                      {section.items.map((item) => (
+                        <li
+                          key={item}
+                          className="flex items-start gap-3"
+                          style={{
+                            fontFamily: "var(--font-body)",
+                            fontSize: 14,
+                            color: C.espresso,
+                          }}
+                        >
+                          <span
+                            aria-hidden="true"
+                            style={{ color: C.terracotta, fontSize: 18 }}
+                          >
+                            •
+                          </span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </article>
+              ))}
+
+              {treatment.faqs && treatment.faqs.length > 0 && (
+                <div className="mt-16">
+                  <h2
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: "clamp(28px, 3vw, 42px)",
+                      fontWeight: 400,
+                      color: C.espresso,
+                      lineHeight: 1.15,
+                      marginBottom: 18,
+                    }}
+                  >
+                    Frequently Asked Questions
+                  </h2>
+                  <div className="divide-y" style={{ borderColor: C.border }}>
+                    {treatment.faqs.map((faq) => (
+                      <details key={faq.question} className="py-5">
+                        <summary
+                          style={{
+                            cursor: "pointer",
+                            fontFamily: "var(--font-body)",
+                            fontSize: 16,
+                            fontWeight: 600,
+                            color: C.espresso,
+                          }}
+                        >
+                          {faq.question}
+                        </summary>
+                        <p
+                          className="pt-3"
+                          style={{
+                            fontFamily: "var(--font-body)",
+                            fontSize: 14,
+                            color: C.warmGrey,
+                            lineHeight: 1.8,
+                          }}
+                        >
+                          {faq.answer}
+                        </p>
+                      </details>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div className="mt-16">
+                <h2
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: "clamp(28px, 3vw, 42px)",
+                    fontWeight: 400,
+                    color: C.espresso,
+                    lineHeight: 1.15,
+                    marginBottom: 16,
+                  }}
+                >
+                  Related Dental Care
+                </h2>
+                <div className="flex flex-wrap gap-x-6 gap-y-3">
+                  {TREATMENTS.filter(
+                    (related) => related.slug !== treatment.slug,
+                  )
+                    .slice(0, 4)
+                    .map((related) => (
+                      <Link
+                        key={related.slug}
+                        to={`/treatments/${related.slug}`}
+                        style={{
+                          color: C.terracotta,
+                          fontFamily: "var(--font-body)",
+                          fontSize: 14,
+                          fontWeight: 600,
+                          textDecoration: "none",
+                        }}
+                      >
+                        {related.title}
+                      </Link>
+                    ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CTA */}
       <section className="pb-24 lg:pb-32">
